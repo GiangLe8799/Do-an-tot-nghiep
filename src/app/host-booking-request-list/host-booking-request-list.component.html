@@ -1,0 +1,259 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-booking-request-list-type">
+      <div class="list">
+        <div class="item" [ngClass]="{'item-active': typeShow === 1}" (click)="showRequestBookingList()">
+          <div class="left">
+            <span class="txt-number">
+              {{requestNumber}}
+            </span>
+            <span class="txt-title">
+              Yêu cầu đặt
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='far fa-clipboard'></i>
+            </span>
+          </div>
+        </div>
+        <div class="item" [ngClass]="{'item-active': typeShow === 3}" (click)="showCheckInList()">
+          <div class="left">
+            <span class="txt-number">
+              {{checkinNumber}}
+            </span>
+            <span class="txt-title">
+              Checkin
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='fas fa-door-closed'></i>
+            </span>
+          </div>
+        </div>
+        <div class="item" [ngClass]="{'item-active': typeShow === 4}" (click)="showCheckOutList()">
+          <div class="left">
+            <span class="txt-number">
+              {{checkoutNumber}}
+            </span>
+            <span class="txt-title">
+              Checkout
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='fas fa-door-open'></i>
+            </span>
+          </div>
+        </div>
+        <div class="item" [ngClass]="{'item-active': typeShow === 5}" (click)="showListBooked()">
+          <div class="left">
+            <span class="txt-number">
+              {{doneNumber}}
+            </span>
+            <span class="txt-title">
+              Đã hoàn tất
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='far fa-calendar-check'></i>
+            </span>
+          </div>
+        </div>
+        <div class="item" [ngClass]="{'item-active': typeShow === 2}" (click)="showListCancelBookings()">
+          <div class="left">
+            <span class="txt-number">
+              {{cancelNumber}}
+            </span>
+            <span class="txt-title">
+              Đã huỷ
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='far fa-calendar-times'></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-search">
+    </div>
+    <div class="row row-info-active-homestay">
+      <div class="col-12 col-info-active-homestay">
+        <div class="contain-info-active-homestay">
+          <div class="contain-left">
+            <!-- <span class="info-homestay-used">
+              Đang sử dụng(14)
+            </span>
+            <span class="info-homestay-empty">
+              Còn trống(3)
+            </span> -->
+            <div class="contain-search">
+              <input type="search" class="input-fill-in" size="50" id="search" name="search" placeholder="Tên khách đặt...">
+              <button type="submit" class="btn btn-warning" (click)="searchHomestay()">
+                <i class='fa fa-search'></i>
+              </button>
+            </div>
+          </div>
+          <div class="contain-right">
+            <a class="all-booking-homestay" (click)="showAll()">
+              Tổng đơn
+              <span class="txt-number">
+                ({{reservationsNumber}})
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-booking-request-list">
+      <div class="col-12 col-booking-request-list">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="txt-left">
+                <span class="txt-title">
+                  STT
+                </span>
+              </th>
+              <th class="txt-left">
+                <span class="txt-title">
+                  Tên khách đặt
+                </span>
+              </th>
+              <th class="txt-left">
+                <span class="txt-title">
+                  Tên chỗ ở
+                </span>
+              </th>
+              <th class="txt-left">
+                Ngày nhận
+              </th>
+              <th class="txt-left">
+                Ngày trả
+              </th>
+              <th class="txt-left">
+                <span class="txt-title">
+                  Giá
+                </span>
+              </th>
+              <th>
+                Xem chi tiết
+              </th>
+              <th>
+                Trạng thái
+              </th>
+              <th>
+                Thao tác
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!---------------Item homestay--------------->
+
+            <tr *ngFor="let res of reservationList| paginate: {
+              itemsPerPage: 10,
+              currentPage: page,
+              totalItems: reservationList.length}; let i = index">
+              <td class="td-txt-left">
+                {{i+1}}
+              </td>
+              <td class="td-txt-left">
+                {{res.user!.fullName}}
+              </td>
+              <td class="td-txt-left">
+                {{res.homestay!.homestayName}}
+              </td>
+              <td class="td-txt-left">
+                {{res.startDate | date: 'dd/MM/YYYY'}}
+              </td>
+              <td class="td-txt-left">
+                {{res.endDate | date: 'dd/MM/YYYY'}}
+              </td>
+              <td class="td-txt-left">
+                {{currency.format(res.cost)}}đ
+              </td>
+              <td>
+                <button class="btn btn-display" (click)="navigateBookingDetail(res.id)">
+                  <i class='fas fa-eye'></i>
+                </button>
+              </td>
+              <td class="contain-txt-status">
+                <span class="txt-status" [ngClass]="{'txt-wait_accept': res.status==1, 'txt-accept': res.status==2, 'txt-checked': res.status==3, 'txt-cancel': res.status==5, 'txt-paying': res.status==4}">
+                  {{setStatus(res.status)}}
+                </span>
+              </td>
+              <td class="contain-btn-isAccept-booking" *ngIf="res.status==1">
+                <button class="btn btn-success btn-accept" data-toggle="modal" data-target="#messQuestion"
+                  (click)="clickAcceptRequestBooking(res.id)">
+                  <i class='far fa-check-circle'></i>
+                </button>
+                <button class="btn btn-danger btn-cancel" data-toggle="modal" data-target="#messQuestion"
+                  (click)="clickDeclineRequestBooking(res.id)">
+                  <i class='fas fa-ban'></i>
+                </button>
+              </td>
+              <td class="contain-btn-isAccept-booking" *ngIf="res.status==2">
+                <button class="btn btn-success btn-accept" data-toggle="modal" data-target="#messQuestion"
+                  (click)="clickCheckIn(res.id)"  [disabled]="!isCheckInValid(res)" >
+                  Check in
+                </button>
+              </td>
+              <td class="contain-btn-isAccept-booking" *ngIf="res.status==3">
+                <button class="btn btn-warning btn-accept" data-toggle="modal" data-target="#messQuestion"
+                  (click)="clickCheckOut(res.id)" >
+                  Check out
+                </button>
+              </td>
+              <td class="contain-btn-isAccept-booking" *ngIf="res.status==5 || res.status==4">
+                {{setStatus(res.status)}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row row-paging">
+      <pagination-controls class="paging text-center" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+  <div class="modal fade" id="messQuestion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{messQuestion}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES(currentReservationId)">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message"
+  [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+  <div class="contain-toast">
+    <div class="contain-message">
+      <span>
+        {{mess}}
+      </span>
+    </div>
+  </div>
+</div>
+</div>

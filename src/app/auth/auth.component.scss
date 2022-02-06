@@ -1,0 +1,97 @@
+$clr-red1:#ff6666;
+$clr-red2:#ff9999;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+$clr-green: #00e600;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+.row-contain {
+  @include size-responsive(100%, 100%);
+  padding: 6% 0 20% 0;
+  margin: 0;
+  .img-background-login-1 {
+    @include size-responsive(100%, 100%);
+    position: absolute;
+  }
+  .img-background-login-2 {
+    @include size-responsive(100%, auto);
+    position: fixed;
+    display: none;
+  }
+  .col-side {
+    @include size-responsive(100%, 100%);
+    padding: 0;
+  }
+  .col-contain-login {
+    @include size-responsive(100%, 100%);
+    padding: 1% 2%;
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+  .row-contain {
+
+  }
+}
+
+
+@media only screen and (max-width: 992px){
+  .row-contain {
+
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .row-contain {
+
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .row-contain {
+
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .row-contain {
+
+
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .row-contain {
+
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .row-contain {
+    padding-top: 22%;
+    .img-background-login-1 {
+      display: none;
+    }
+    .img-background-login-2 {
+      display: block;
+    }
+    .col-side {
+      display: none;
+    }
+
+  }
+}

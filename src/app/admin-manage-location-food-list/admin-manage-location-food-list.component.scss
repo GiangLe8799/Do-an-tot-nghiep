@@ -1,0 +1,392 @@
+$clr-red1: #ff6666;
+$clr-red2: #ff9999;
+$clr-white: #fff;
+$clr-white1: #f2f2f2;
+$clr-white2: #e6e6e6;
+$clr-white3: #d9d9d9;
+$clr-white4: #cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1: #0d0d0d;
+$clr-black2: #1a1a1a;
+$clr-black3: #262626;
+$clr-black4: #333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+$clr-green: #00e600;
+$clr-yellow:#ffcc00;
+@mixin size($w, $h) {
+    width: $w;
+    height: $h;
+}
+@mixin obje($f, $p) {
+    object-fit: $f;
+    object-position: $p;
+}
+.head {
+    @include size(100%, auto);
+    margin: 3% 0 3% 0;
+    .left {
+        select{
+            @include size(100%, auto);
+            padding: 2%;
+            margin: 0 0 10% 0;
+            border: 1px solid black;
+        }
+        .txt-sort {
+          font-size: 100%;
+          font-weight: bolder;
+        }
+        .txt-sort:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        .loc{
+            @include size(100%, auto);
+        }
+    }
+    .right{
+        button{
+          @include size(fit-content, auto);
+        }
+        .err{
+            margin-top: 2%;
+            color: $clr-red1;
+        }
+    }
+    .cla-select{
+        @include size(100%, auto);
+        padding: 2%;
+        select{
+            @include size(15%, auto);
+            padding: 0.5%;
+            margin-top: 1%;
+            margin-left: 3%;
+        }
+        .opt{
+            margin-left: 0;
+        }
+        button{
+          @include size(fit-content, auto);
+          margin-left: 5%;
+        }
+    }
+}
+table {
+    @include size(100%, auto);
+    border-radius: 10px;
+    background-color: $clr-white;
+    box-shadow: 0 3px 8px 1px $clr-white3;
+    thead {
+      th {
+        border: none;
+        text-align: center;
+      }
+      .th-txt {
+        text-align: left;
+      }
+    }
+    tbody {
+      tr:hover {
+        background-color: $clr-yellow;
+      }
+      td {
+        text-align: center;
+        .btn {
+          font-size: 100%;
+        }
+        .btn-display {
+          font-size: 100%;
+        }
+        .contain-action {
+          @include size(100%, auto);
+          display: flex;
+          justify-content: center;
+          .btn-edit {
+            margin-right: 2%;
+          }
+        }
+      }
+      .td-txt {
+        text-align: left;
+      }
+    }
+    .food-photo{
+        @include size(150px, 100px);
+        @include obje(cover, 50% 50%);
+    }
+}
+.col-contain-paging {
+    margin: auto;
+}
+
+.modal0, .modal1{
+    .modal-body{
+        padding: 2%;
+        .row-img-food {
+          @include size(100%, auto);
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          .txt-title {
+            font-size: 150%;
+            font-weight: bolder;
+            color: $clr-black;
+          }
+
+          .contain-img-food {
+            width: fit-content;
+            position: relative;
+            img {
+              @include size(100%, auto);
+              margin: 0;
+              max-width: 15vw;
+              max-height: 10vw;
+              box-shadow: 0 3px 8px 1px $clr-white3;
+            }
+            .btn-cancel {
+              width: fit-content;
+              position: absolute;
+              top: 0;
+              right: 0;
+              margin: 0;
+              font-size: 100%;
+            }
+          }
+          label {
+            width: fit-content;
+            padding: 3%;
+            border: 2px dotted $clr-black;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            cursor: pointer;
+            .txt-icon {
+              font-size: 200%;
+            }
+            .txt-des {
+              font-size: 90%;
+            }
+            img {
+              @include size(10vw, 10vw);
+            }
+          }
+          .displayNoneImgFood {
+            display: none;
+          }
+          .displayNoneAddImgFood {
+            display: none;
+          }
+          input {
+            display: none;
+          }
+          .txt-mess {
+            color: red;
+          }
+        }
+        .mess-warn {
+          color: $clr-red1;
+          font-size: 90%;
+          font-style: italic;
+        }
+        select{
+            @include size(100%, auto);
+            padding: 1%;
+        }
+        img{
+            @include size(100%, 40%);
+            margin: 0 0 5% 0;
+
+        }
+        .upload{
+            width: 50%;
+            margin: 5% 25% 5% 25%;
+        }
+    }
+    .modal-footer{
+        button{
+            @include size(30%, auto);
+            margin: 1% 35% 1% 35%;
+        }
+    }
+}
+
+/*----------------------Message----------------------*/
+.col-message {
+  padding: 0 40%;
+  position: fixed;
+  z-index: 100;
+  right: 0;
+  .contain-toast {
+    margin: 0;
+    border-radius: 5px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    .contain-message {
+      padding: 1%;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      color: $clr-white;
+    }
+    .contain-close {
+      padding: 0;
+      display: flex;
+      justify-content: flex-end;
+      .btn-close {
+        color: $clr-white;
+      }
+    }
+  }
+}
+.displayMessage {
+  animation: moveBoxMessage 2s;
+  .contain-toast {
+    background-color:green;
+  }
+}
+.displayWarnMessage {
+  animation: moveBoxMessage 2s;
+  .contain-toast {
+    background-color:orange;
+  }
+}
+.displayErrorMessage {
+  animation: moveBoxMessage 2s;
+  .contain-toast {
+    background-color:red;
+  }
+}
+@keyframes moveBoxMessage {
+  0%   {
+    display: none;
+    top: 10%;
+    opacity: 0;
+  }
+  20%  {
+    display: block;
+    top: 12%;
+    opacity: 1;
+  }
+  80%  {
+    display: block;
+    top: 12%;
+    opacity: 1;
+  }
+  100% {
+    display: none;
+    top: 10%;
+    opacity: 0;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 1024px) {
+    .head{
+        .left{
+            span,a{
+                font-size: 120%;
+            }
+            select{
+                font-size: 110%;
+            }
+            .loc{
+                width: 70%;
+            }
+        }
+        .right{
+          font-size: 140%;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 960px) {
+    .head{
+        .left{
+            select{
+                font-size: 120%;
+            }
+        }
+        .right{
+            margin-top: 3%;
+        }
+    }
+
+}
+
+@media only screen and (max-width: 854px) {
+    h1{
+        text-align: center;
+        margin-top: 5%;
+    }
+}
+
+@media only screen and (max-width: 720px) {
+
+}
+
+@media only screen and (max-width: 640px) {
+
+}
+
+@media only screen and (max-width: 576px) {
+    .contain{
+        span,a{
+            font-size: 100%;
+        }
+        h1{
+            font-size: 200%;
+        }
+        .head{
+            .left{
+
+                button{
+                    margin-top: 2%;
+                }
+                select{
+                    @include size(80%, auto);
+                    margin: 3% 0 3% 0;
+                }
+            }
+        }
+        table{
+            font-size: 100%;
+            .food-photo{
+                @include size(100px, 80px);
+            }
+        }
+
+    }
+    .modal0, .modal1{
+        @include size(100%, auto);
+        padding: 0;
+        .modal-body{
+            select{
+                @include size(100%, auto);
+            }
+        }
+        .modal-footer{
+            button{
+                @include size(100%, auto);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

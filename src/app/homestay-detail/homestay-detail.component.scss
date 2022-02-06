@@ -1,0 +1,403 @@
+$clr-yellow:#ffcc00;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.row-contain {
+  @include size-responsive(100%, auto);
+  margin: 0;
+  padding: 5% 0 0 0;
+  .col-contain {
+    @include size-responsive(100%, auto);
+    /*---------------Banner---------------*/
+    .row-contain-img-homestay {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      overflow: auto;
+      display: flex;
+      flex-wrap: nowrap;
+      img {
+        @include size-responsive(100%, auto);
+        max-height: 600px;
+        position: relative;
+        border-right: 2px solid $clr-black;
+      }
+    }
+    .row-breadcrumb {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      .breadcrumb {
+        @include size-responsive(100%, auto);
+        background-color: $clr-white1;
+        li {
+          a {
+            text-decoration: none;
+            color: $clr-black;
+          }
+          a:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          .a-link-web {
+            color: blue;
+          }
+        }
+        li+li:before {
+          padding: 10px;
+          content: "/\00a0";
+        }
+      }
+    }
+    .row-contain-detail-and-book-homestay {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      padding: 0 5%;
+      .col-detail-homestay {
+        @include size-responsive(100%, auto);
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+        .underline {
+          @include size-responsive(100%, auto);
+          border-top: 1px solid $clr-white6;
+          margin: 3% 0;
+        }
+        .txt-conven, .txt-title {
+          font-size: 150%;
+        }
+        span {
+          font-size: 120%;
+        }
+        .row-contain-conven {
+          @include size-responsive(100%, auto);
+          margin: 0;
+          .col-item-conven {
+            @include size-responsive(100%, auto);
+          }
+        }
+        .row-list-price-homestay {
+          @include size-responsive(100%, auto);
+          margin: 0;
+          .col-item-price {
+            @include size-responsive(100%, auto);
+            display: flex;
+            justify-content: space-between;
+          }
+        }
+      }
+      .col-contain-right {
+        @include size-responsive(100%, auto);
+        .row-contain-book {
+          @include size-responsive(100%, auto);
+          margin: 0;
+          padding: 1%;
+          background-color: $clr-white;
+          border-radius: 5px;
+          .col-item {
+            padding: 0 0 2% 0;
+          }
+          .col-price {
+            @include size-responsive(100%, auto);
+          }
+          .col-date-book {
+            @include size-responsive(100%, auto);
+            .row-contain-date-book {
+              @include size-responsive(100%, auto);
+              margin: 0 0 2% 0;
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              label {
+                font-weight: bolder;
+                padding-right: 1%;
+              }
+              input {
+                @include size-responsive(75%, auto);
+                background-color: $clr-white1;
+                color: $clr-black;
+                border: none;
+                border-radius: 5px;
+                margin: 0 1% 0 0;
+                font-weight: bold;
+              }
+              ::-webkit-calendar-picker-indicator {
+                filter: invert(0);
+              }
+            }
+            .row-mess-err {
+              @include size-responsive(100%, auto);
+              margin: 0;
+              color: red;
+            }
+          }
+          .col-amount-person {
+            @include size-responsive(100%, auto);
+            .row-amount-person {
+              @include size-responsive(100%, auto);
+              margin: 0;
+              @include align-items-center();
+              .col-item {
+                @include size-responsive(100%, auto);
+                text-align: center;
+                input {
+                  @include size-responsive(100%, auto);
+                  background-color: $clr-white1;
+                  color: $clr-black;
+                  border: none;
+                  border-radius: 5px;
+                  margin: 0 1%;
+                  text-align: center;
+                  font-weight: bold;
+                }
+                ::-webkit-calendar-picker-indicator {
+                  filter: invert(0);
+                }
+              }
+            }
+          }
+          .col-btn-book {
+            @include size-responsive(100%, auto);
+            .btn-book {
+              @include size-responsive(100%, auto);
+            }
+          }
+        }
+        .row-contain-comment {
+          margin: 0;
+          margin-top: 2%;
+          .col-title {
+            .txt-title {
+              font-size: 150%;
+              font-weight: bolder;
+            }
+            .contain-txt-none {
+              @include size-responsive(100%, auto);
+              margin: 1% 0 0 0;
+              font-size: 100%;
+              font-weight: bold;
+              text-align: center;
+              padding: 3px 5px;
+              color: $clr-white6;
+            }
+          }
+          .col-contain-list-comment {
+            @include size-responsive(100%, auto);
+            max-height: 500px;
+            overflow-y: auto;
+            background-color: $clr-white;
+            border-radius: 5px;
+            .row-item-comment {
+              @include size-responsive(100%, auto);
+              margin: 1%;
+              display: flex;
+              flex-direction: row;
+              flex-wrap: nowrap;
+              .col-left {
+                @include size-responsive(10%, auto);
+                overflow: hidden;
+                margin: 0 1% 0 0;
+                img {
+                  @include size-responsive(100%, auto);
+                  border-radius: 50%;
+                }
+              }
+              .col-right {
+                @include size-responsive(100%, auto);
+                padding: 1% 3%;
+                border-radius: 30px;
+                background-color: $clr-white1;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                .row-name-user {
+                  @include size-responsive(100%, auto);
+                  margin: 0;
+                  .txt-name {
+                    font-weight: bolder;
+                    font-size: 120%;
+                  }
+                }
+                .row-rate-star {
+                  @include size-responsive(100%, auto);
+                  cursor: pointer;
+                }
+                .row-rate-star {
+                  .checked {
+                    color: orange;
+                  }
+                }
+                .row-comment {
+                  @include size-responsive(100%, auto);
+                  margin: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 960px) {
+  .row-contain {
+    .col-contain {
+      .row-contain-detail-and-book-homestay {
+        .col-contain-right {
+          .row-contain-book {
+            .col-date-book {
+              .row-contain-date-book {
+                flex-direction: column;
+                input {
+                  width: 50%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 854px) {
+  .row-contain {
+    .col-contain {
+      .row-contain-detail-and-book-homestay {
+        .col-contain-right {
+          .row-contain-book {
+            .col-date-book {
+              .row-contain-date-book {
+                input {
+                  width: 70%;
+                }
+              }
+            }
+          }
+          .row-contain-comment {
+            .col-contain-list-comment {
+              .row-item-comment {
+                .col-left {
+                  width: 20%;
+                }
+                .col-right {
+                  padding: 1% 7%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .row-contain {
+    .col-contain {
+      .row-contain-detail-and-book-homestay {
+        .col-contain-right {
+          .row-contain-book {
+            .col-date-book {
+              .row-contain-date-book {
+                flex-direction: row;
+                input {
+                  width: 40%;
+                }
+              }
+            }
+          }
+          .row-contain-comment {
+            .col-contain-list-comment {
+              .row-item-comment {
+                .col-left {
+                  width: 10%;
+                }
+                .col-right {
+                  padding: 1% 3%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+
+}
+
+@media only screen and (max-width: 576px) {
+  .row-contain {
+    padding-top: 32% !important;
+    .col-contain {
+      .row-contain-detail-and-book-homestay {
+        .col-contain-right {
+          .row-contain-book {
+            .col-date-book {
+              .row-contain-date-book {
+                flex-direction: column;
+                input {
+                  width: 70%;
+                }
+              }
+            }
+          }
+          .row-contain-comment {
+            .col-contain-list-comment {
+              .row-item-comment {
+                .col-left {
+                  width: 20%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

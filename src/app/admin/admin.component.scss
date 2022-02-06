@@ -1,0 +1,124 @@
+$clr-red1:#ff6666;
+$clr-red2:#ff9999;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+$clr-green: #00e600;
+$clr-yellow:#ffcc00;
+@mixin size ($w,$h) {
+  width: $w;
+  height: $h;
+}
+.contain {
+  @include size(100%, auto);
+  margin: 0;
+  padding: 6% 0 0 0;
+  .col-left {
+    @include size(100%, auto);
+    .select-function {
+      display: none;
+      border: none;
+      background-color: $clr-white;
+      color: $clr-yellow;
+      font-weight: bolder;
+      border-radius: 15px;
+      padding: 1% 4%;
+      .ic-arrow-down {
+        float: right;
+        padding-top: 1%;
+      }
+    }
+    .function{
+      @include size(100%, auto);
+      background-color: $clr-white;
+      text-align: left;
+      border-radius: 5px;
+      overflow: hidden;
+      a{
+        padding: 4% 2% 2% 4%;
+        color: $clr-black;
+        display: block;
+        text-decoration: none;
+        transition: 0.1s;
+        img{
+          @include size(40px, 40px);
+          margin: 1% 0 1% 0;
+          display: inline-block;
+        }
+        .sm-a{
+          @include size(25px, 25px);
+          display: inline-block;
+        }
+        span{
+          margin-left: 5%;
+        }
+        .sm-span{
+          font-size: 90%;
+          margin-left: 3%;
+        }
+      }
+      a:hover{
+        color: $clr-yellow;
+        background-color: $clr-white;
+      }
+      .border-act{
+        background-color: $clr-yellow;
+      }
+    }
+  }
+  .col-right {
+    @include size(100%, auto);
+    .content{
+      @include size(100%, auto);
+      color: $clr-white;
+    }
+  }
+}
+
+@media screen and (max-width: 1280px){
+
+}
+@media screen and (max-width: 992px){
+
+}
+@media screen and (max-width: 768px){
+  .contain {
+    padding-top: 10%;
+  }
+}
+@media screen and (max-width: 576px){
+  .contain {
+    padding-top: 30%;
+    .col-left {
+      .select-function {
+        display: block !important;
+      }
+      .function{
+        width: 93% !important;
+        height: 0 !important;
+        overflow: hidden;
+        position: absolute;
+        z-index: 1;
+        transition: 0.3s ease-in-out;
+        box-shadow: none !important;
+      }
+    }
+    .col-left:hover {
+      .function{
+        height: 900% !important;
+      }
+    }
+  }
+}
+

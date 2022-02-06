@@ -1,0 +1,31 @@
+<div class="contain-login">
+  <form [formGroup]="forgotPassForm" (ngSubmit)="sendLinkRecoverPassword()">
+    <button class="btn btn-back" [routerLink]="['/auth','login']">
+      <i class='fas fa-arrow-left'></i>
+    </button>
+    <span class="txt-login">Quên mật khẩu</span>
+    <br><br>
+    <span class="txt-direct">
+      Vui lòng nhập địa chỉ email được liên kết với tài khoản để nhận liên kết đặt lại mật khẩu
+    </span>
+    <br><br>
+    <input type="email" id="email" class="input-fill-in" formControlName="email" placeholder="Nhập email" required/>
+    <br>
+    <label for="email" class="message">{{messEmail}}</label>
+    <br><br>
+    <!-- [routerLink]="['/auth','recover-password']" -->
+    <button type="submit" class="btn btn-danger btn-send-mail" [disabled]="!forgotPassForm.valid">
+      Gửi
+    </button>
+  </form>
+  <!--toast message-->
+  <div class="col-12 col-message" [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

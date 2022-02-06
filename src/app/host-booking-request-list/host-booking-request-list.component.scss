@@ -1,0 +1,384 @@
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+$clr-yellow:#ffcc00;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+.row-contain {
+  margin: 0;
+  .col-contain {
+    .row-booking-request-list-type {
+      margin: 0;
+      .list {
+        @include size-responsive(100%, auto);
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        .item {
+          padding: 2% 4%;
+          margin: 0 2% 2% 0;
+          background-color: $clr-white;
+          box-shadow: 0 3px 8px 1px $clr-white3;
+          border-radius: 5px;
+          display: flex;
+          flex-direction: row;
+          cursor: pointer;
+          .left {
+            display: flex;
+            flex-direction: column;
+            .txt-number {
+              font-size: 200%;
+              font-weight: bolder;
+              color: $clr-yellow;
+            }
+            .txt-title {
+              font-weight: bolder;
+              color: $clr-white6;
+            }
+          }
+          .right {
+            .txt-icon {
+              color: $clr-white6;
+              font-size: 200%;
+            }
+          }
+
+        }
+        .item:hover, .item-active {
+          background-color: $clr-yellow;
+          .left {
+            .txt-number {
+              color: $clr-white;
+            }
+            .txt-title {
+              color: $clr-white;
+            }
+          }
+          .right {
+            .txt-icon {
+              color: $clr-white;
+            }
+          }
+        }
+      }
+    }
+    .row-search {
+      margin: 0;
+      padding: 3% 0;
+      .col-search {
+        text-align: center;
+        .contain-search {
+          @include size-responsive(100%, auto);
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          .input-fill-in {
+            @include size-responsive(100%, auto);
+            background-color: $clr-white;
+            border: 1px solid $clr-white6;
+            color: $clr-black;
+            padding: 0.5%;
+          }
+        }
+        .txt-mess {
+          color: red;
+        }
+      }
+    }
+    .row-info-active-homestay {
+      margin: 0;
+      .col-info-active-homestay {
+        .contain-info-active-homestay {
+          display: flex;
+          justify-content: space-between;
+          flex-direction: row-reverse;
+          .contain-left {
+            @include size-responsive(100%, auto);
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            .contain-search {
+              @include size-responsive(100%, auto);
+              display: flex;
+              flex-direction: row;
+              justify-content: center;
+              .input-fill-in {
+                @include size-responsive(100%, auto);
+                background-color: $clr-white;
+                border: 1px solid $clr-white6;
+                color: $clr-black;
+                padding: 0.5%;
+              }
+            }
+            .info-homestay-used, .info-homestay-empty {
+              font-size: 90%;
+            }
+            .info-homestay-used {
+              color: orange;
+              font-weight: bolder;
+              margin: 0 5px 0 0;
+            }
+            .info-homestay-empty {
+              color: green;
+              font-weight: bolder;
+            }
+          }
+          .contain-right {
+            @include size-responsive(100%, auto);
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            a {
+              cursor: pointer;
+              font-size: 90%;
+              text-decoration: underline;
+            }
+            .booking-homestay-cancel {
+              margin: 0 5px 0 0;
+              color: red;
+            }
+            .all-booking-homestay {
+            }
+          }
+        }
+      }
+    }
+    .row-booking-request-list {
+      @include size-responsive(100%, auto);
+      margin: 2% 0 0 0;
+      .col-booking-request-list {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        overflow-x: auto;
+        table {
+          @include size-responsive(100%, auto);
+          border-radius: 10px;
+          background-color: $clr-white;
+          box-shadow: 0 3px 8px 1px $clr-white3;
+          thead {
+            th {
+              border: none;
+              text-align: center;
+            }
+            .txt-left {
+              text-align: left;
+            }
+            .filter {
+              .txt-icon {
+                color: $clr-white6;
+              }
+            }
+            .filter:hover {
+              background-color: $clr-yellow;
+              cursor: pointer;
+              .txt-title, .txt-icon {
+                color: $clr-white;
+              }
+            }
+            .booking-request, .check-in, .check-out {
+              display: none;
+            }
+          }
+          tbody {
+            tr:hover {
+              background-color: $clr-yellow;
+            }
+            td {
+              text-align: center;
+            }
+
+            .td-txt-left {
+              text-align: left;
+            }
+            .contain-btn-isAccept-booking {
+              display: flex;
+              justify-content: space-around;
+            }
+            .booking-request, .check-in, .check-out {
+              display: none;
+            }
+            .contain-txt-status {
+              .txt-status {
+                font-size: 100%;
+                padding: 3px 5px;
+                color: $clr-white;
+              }
+              .txt-wait_accept {
+                background-color: #ffae00;
+              }
+              .txt-accept {
+                background-color: green;
+              }
+              .txt-decline {
+                background-color: #ff3419;
+              }
+              .txt-checked {
+                background-color: #fffb10;
+              }
+              .txt-cancel {
+                background-color: #ff0000;
+              }
+              .txt-paying {
+                background-color: #3aa6ff;
+              }
+            }
+          }
+        }
+      }
+    }
+    .row-paging {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+    }
+  }
+  /*----------------------Message----------------------*/
+  .col-message {
+    padding: 0 40%;
+    position: fixed;
+    z-index: 100;
+    right: 0;
+    .contain-toast {
+      margin: 0;
+      border-radius: 5px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      .contain-message {
+        padding: 1%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        color: $clr-white;
+      }
+      .contain-close {
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        .btn-close {
+          color: $clr-white;
+        }
+      }
+    }
+  }
+  .displayMessage {
+    animation: moveBoxMessage 2s;
+    .contain-toast {
+      background-color: green;
+    }
+  }
+  .displayWarnMessage {
+    animation: moveBoxMessage 2s;
+    .contain-toast {
+      background-color: orange;
+    }
+  }
+  .displayErrorMessage {
+    animation: moveBoxMessage 2s;
+    .contain-toast {
+      background-color: red;
+    }
+  }
+  @keyframes moveBoxMessage {
+    0% {
+      display: none;
+      top: 10%;
+      opacity: 0;
+    }
+    20% {
+      display: block;
+      top: 12%;
+      opacity: 1;
+    }
+    80% {
+      display: block;
+      top: 12%;
+      opacity: 1;
+    }
+    100% {
+      display: none;
+      top: 10%;
+      opacity: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 960px) {
+  .row-contain {
+    .col-contain {
+      .row-booking-request-list-type {
+        .list {
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 854px) {
+
+}
+
+@media only screen and (max-width: 720px) {
+  .row-contain {
+
+  }
+}
+
+@media only screen and (max-width: 640px) {
+
+}
+
+@media only screen and (max-width: 576px) {
+  .row-contain {
+    .row-info-active-homestay {
+      margin: 0;
+      .col-info-active-homestay {
+        .contain-info-active-homestay {
+          justify-content: none;
+          flex-direction: column-reverse;
+          .contain-right {
+            margin: 0 0 2% 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

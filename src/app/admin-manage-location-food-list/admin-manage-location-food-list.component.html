@@ -1,0 +1,253 @@
+<div class="contain">
+  <h1>Danh sách món ăn</h1>
+  <div class="head">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 left">
+          <div class="row">
+            <div class="col-sm-4">
+              <select class="opt" id="city" name="city" (change)="sortByCity($event)">
+                <option id="-1" [value]="null" disabled selected>
+                  Tỉnh/thành phố
+                </option>
+                <option id="0" value="all">
+                  Tất cả
+                </option>
+                <option id="{{pro.id}}" value="{{pro.id}}" *ngFor="let pro of provinces">
+                  {{pro.provinceName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="roww-active">
+            <div class="row">
+              <div class="col-sm-8">
+                <span class="text-primary txt-sort" (click)="showAllFood()">
+                  Tất cả ({{allLength}})
+                </span>
+                <br>
+                <span class="text-success txt-sort" (click)="getFoodsByStatus(1)">
+                  Đang hoạt động ({{activeLength}})
+                </span>
+                <br>
+                <span class="text-secondary txt-sort" (click)="getFoodsByStatus(0)">
+                  Không hoạt động({{inactiveLength}})
+                </span>
+              </div>
+              <div class="col-sm-4">
+                <button type="button" class="btn btn-primary add" data-toggle="modal" data-target=".modal0">
+                  <i class='fas fa-plus'></i>
+                  Thêm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 right">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="search" placeholder="Tìm kiếm...">
+            <button type="submit" class="btn btn-primary" (click)="checkSearching()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <div class="err">{{mesSearch}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <th scope="col" class="th-txt">STT</th>
+        <th scope="col" class="th-txt">Tên món ăn</th>
+        <th scope="col" class="th-txt">Thành phố</th>
+        <th scope="col">Hiện/Ẩn</th>
+        <th scope="col">Chỉnh sửa</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let food of foods | paginate:{
+          itemsPerPage: 5,
+          currentPage: page,
+          totalItems: foods.length}; let i = index">
+          <td class="td-txt">
+            {{i+1}}
+          </td>
+          <td class="td-txt">
+            {{food.foodName}}
+          </td>
+          <td class="td-txt">
+            {{food.province!.provinceName}}
+          </td>
+          <td>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="food.status" (click)="changeStatusFood(food)">
+              <i class='fas fa-eye'></i>
+            </button>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="!food.status" (click)="changeStatusFood(food)">
+              <i class='fas fa-eye-slash'></i>
+            </button>
+          </td>
+          <td>
+            <div class="contain-action">
+              <button class="btn btn-warning btn-edit" data-toggle="modal" data-target=".modal1" (click)="getCurrentFood(food.id)">
+                <i class='fas fa-edit'></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 col-contain-paging">
+    <pagination-controls class="text-center" (pageChange)="page = $event">
+    </pagination-controls>
+  </div>
+  <!--message question-->
+  <div class="modal fade" id="messQuestion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{messQuestion}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES()">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal modal0 fade" id="exampleModalLong">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form>
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Thêm món ăn mới
+            </h4>
+            <button type="button" class="close" data-dismiss="modal">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="form-group">
+                  <label for="">Tỉnh/Thành phố</label><br>
+                  <select id="newProvince" name="newProvince" (change)="saveNewProvinceForFood($event)">
+                    <option value="{{pro.id}}" *ngFor="let pro of provinces">
+                      {{pro.provinceName}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="foodName">Tên món ăn</label><br>
+                  <input type="text" id="newFoodName" name="foodName" placeholder="Nhập tên món" maxlength="200">
+                  <label for="foodName" class="mess-warn">
+                    {{messAddNameFood}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label for="">Trạng thái*</label><br>
+                  <label for="newFoodActive">
+                    <input type="radio" name="newFoodStatus" id="newFoodActive" value="1" checked> Hoạt động
+                  </label>
+                  <br>
+                  <label for="newFoodInactive">
+                    <input type="radio" name="newFoodStatus" id="newFoodInactive" value="0"> Không hoạt động
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" id="addFood" (click)="addFood()">
+              Thêm mới
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal1 fade" id="exampleModalLong">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form>
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Chỉnh sửa món ăn
+            </h4>
+            <button type="button" class="close" data-dismiss="modal">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-7">
+                <div class="form-group">
+                  <label for="">Tỉnh/Thành phố</label><br>
+                  <select name="updateProvince" id="updateProvince" (change)="saveUpdateProvince($event)">
+                    <option value="{{pro.id}}" *ngFor="let pro of provinces"
+                      [selected]="pro.id == currentFood.province?.id">
+                      {{pro.provinceName}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="editFoodName">Tên món ăn</label><br>
+                  <input type="text" id="editFoodName" name="editFoodName" value="{{currentFood.foodName}}" placeholder="Nhập tên món">
+                  <label for="editFoodName" class="mess-warn">
+                    {{messEditNameFood}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label for="">Trạng thái*</label><br>
+                  <label for="editActive">
+                    <input type="radio" name="editFoodStatus" id="editActive" value="1"
+                    [checked]="currentFood.status==1" > Hoạt động
+                  </label>
+                  <br>
+                  <label for="editInactive">
+                    <input type="radio" name="editFoodStatus" id="editInactive" value="0"
+                    [checked]="currentFood.status==0" > Không hoạt động
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-warning" id="editFood" (click)="editFood()">
+              Cập nhật
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message"
+    [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

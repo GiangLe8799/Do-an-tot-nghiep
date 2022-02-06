@@ -1,0 +1,55 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-breadcumb">
+      <ul class="breadcrumb">
+        <li>
+          <a (click)="navigateToBlogList(currentBlog.destination?.id)">
+            Blogs
+          </a>
+        </li>
+        <li>
+            {{currentBlog.category}}
+        </li>
+        <li>
+          <a class="a-link-web" (click)="navigateToBlogDetail(currentBlog.id)">
+            {{currentBlog.postName}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="row row-contain-blog-detail">
+      <div class="col-12 col-sm-8 col-blog-detail">
+        <span class="txt-title">
+          {{currentBlog.postName}}
+        </span>
+        <br><br>
+        <section class="txt-shortDesc">
+          {{currentBlog.shortDescription}}
+        </section>
+        <br>
+        <section class="txt-longDesc" [innerHTML]="currentBlog.content">
+        </section>
+      </div>
+      <div class="col-12 col-sm-4 col-contain-blog-list">
+        <h4>
+          Bài viết khác
+        </h4>
+        <hr />
+        <div class="contain-blog-list">
+          <!-- *ngFor="let list of listBlog" -->
+          <div class="row row-item-new" *ngFor="let blog of listBlog" (click)="navigateToBlogDetail(blog.id)">
+            <div class="col-4 col-img">
+              <img [src]="imgList.get('post'+blog.id+'.jpg')" alt="" />
+            </div>
+            <div class="col-8 col-name">
+              <p>
+                {{blog.postName}}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,110 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-sort">
+      <div class="col-12 col-sort">
+        <select class="opt" name="searchCity" id="searchCity" (change)="sortByCity($event)">
+          <option value="all" disabled selected>
+            Tỉnh/Thành phố
+          </option>
+          <option value="all">
+            Tất cả
+          </option>
+          <option id="{{pro.id}}" value="{{pro.id}}" *ngFor="let pro of provinces">
+            {{pro.provinceName}}
+          </option>
+        </select>
+        <select class="opt" name="selectDistrict" id="selectDistrict" (change)="searchHomestayByDistrict($event)">
+          <option value="all" disabled selected>
+            Quận/Huyện
+          </option>
+          <option value="all">
+            Tất cả
+          </option>
+          <option value="{{dis.districtName}}" *ngFor="let dis of districts;">
+            {{dis.districtName}}
+          </option>
+        </select>
+        <select class="select-type" name="selectTypeHomestay" id="selectTypeHomestay" (change)="saveSearchType()">
+          <option value="all" disabled selected>
+            Kiểu chỗ ở
+          </option>
+          <option value="all">
+            Tất cả
+          </option>
+          <option value="homestay">
+            Homestay
+          </option>
+          <option value="apartment">
+            Căn hộ dịch vụ
+          </option>
+          <option value="house">
+            Nhà riêng
+          </option>
+          <option value="villa">
+            Biệt thự
+          </option>
+        </select>
+        <select class="select-price" name="selectPrice" id="selectPrice" (change)="sortByPrice($event)">
+          <option id="-1" [value]="null" disabled selected>
+            Sắp xếp theo giá
+          </option>
+          <option value="asc">
+            Giá tăng dần
+          </option>
+          <option value="desc">
+            Giá giảm dần
+          </option>
+        </select>
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-primary add" (click)="filterSearch()">
+            <i class='fa fa-search'></i>
+            Lọc
+          </button>
+        </div>
+      </div>
+    </div>
+    <!---------------List homestay--------------->
+    <div class="row row-contain-list">
+      <div class="col-12 col-contain-list">
+        <div class="row row-txt-list-homestay">
+          Danh sách homestay tìm thấy ({{homestayList.length}})
+        </div>
+        <div class="row-list-search">
+          <!---------------Item homestay--------------->
+          <div class="col-6 col-sm-4 col-md-3 col-card-homestay" *ngFor="let homestay of homestayList | paginate: {
+            itemsPerPage: 16,
+            currentPage: page,
+            totalItems: homestayList.length}"
+            (click)="navigateToHomestayDetail(homestay.destination!.district!.province!.id,homestay.destination!.id, homestay.id)">
+            <div class="card-homestay">
+              <div class="contain-img-homestay">
+                <img [src]="imgList.get('homestay'+homestay.homestayName+'.jpg')" alt="">
+              </div>
+              <div class="info-homestay">
+                <span class="txt-name">
+                  {{homestay.homestayName}}
+                </span>
+                <span class="txt-type-homestay">
+                  <i class='fas fa-building'></i>
+                  {{setTypeName(homestay.homestayTypeName)}}
+                </span>
+                <span class="txt-price">
+                  <i class='fas fa-money-bill-wave'></i>
+                  {{currency.format(homestay.cost)}}đ/ Đêm
+                </span>
+                <span class="txt-address">
+                  <i class='fas fa-map-marker-alt'></i>
+                  {{homestay.address}}
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row row-paging">
+      <pagination-controls class="paging text-center" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,442 @@
+$clr-yellow:#ffcc00;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.row-contain {
+  @include size-responsive(100%, auto);
+  margin: 0;
+  padding: 7% 0 0 0;
+  .col-side {
+    @include size-responsive(100%, auto);
+    padding: 0;
+  }
+  .col-contain {
+    @include size-responsive(100%, auto);
+    padding: 0;
+    /*---------------Banner---------------*/
+    .row-banner {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      .carousel {
+        @include size-responsive(100%, auto);
+        overflow: hidden;
+        border-radius: 10px;
+        .carousel-inner {
+          .carousel-item {
+            img {
+              @include size-responsive(100%, auto);
+            }
+          }
+        }
+      }
+    }
+    /*---------------Welcome---------------*/
+    .row-txt-welcome-user {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      font-size: 200%;
+      font-weight: bolder;
+      .txt-welcome-user {
+        @include size-responsive(100%, auto);
+        display: block;
+        padding: 4% 0;
+      }
+    }
+    /*---------------Place list---------------*/
+    .row-contain-place {
+      @include size-responsive(100%, auto);
+      margin: 0 0 4% 0;
+      .col-txt-place {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        margin: 0 0 2% 0;
+        font-size: 150%;
+        font-weight: bolder;
+      }
+      .col-list-place {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        .row-list-place {
+          @include size-responsive(100%, auto);
+          margin: 0;
+          .col-contain-item-place {
+            @include size-responsive(100%, auto);
+            padding: 0 2% 2% 0;
+            .card-place {
+              @include size-responsive(100%, auto);
+              border-radius: 5px;
+              position: relative;
+              overflow: hidden;
+              box-shadow: 0 3px 8px 1px $clr-white3;
+              cursor: pointer;
+              .img-place {
+                @include size-responsive(100%, 21vw);
+                overflow: hidden;
+              }
+              img {
+                @include size-responsive(100%, auto);
+                transition: .5s ease;
+              }
+              .info-place {
+                @include size-responsive(100%, 12%);
+                position: absolute;
+                display: flex;
+                flex-direction: column;
+                padding: 0 2%;
+                color: $clr-white;
+                transition: .5s ease;
+                bottom: 0;
+                background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
+                .txt-name-place {
+                  font-size: 150%;
+                  font-weight: bolder;
+                  text-align: center;
+                  padding: 0 0 4% 0;
+                }
+                span {
+                  font-size: 120%;
+                }
+              }
+            }
+            .card-place:hover {
+              img {
+                transform: scale(1.1);
+              }
+              .info-place {
+                height: 35%;
+              }
+            }
+          }
+        }
+
+      }
+      .col-paging {
+        @include size-responsive(100%, auto);
+        padding: 2% 0 0 0;
+      }
+    }
+    /*---------------Hot Homestay list---------------*/
+    .row-contain-hot-homestay {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      .col-txt-hot-homestay {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        margin: 0 0 2% 0;
+        font-size: 150%;
+        font-weight: bolder;
+      }
+      .col-list-hot-homestay {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        .row-list-hot-homestay {
+          @include size-responsive(100%, auto);
+          margin: 0;
+          .col-contain-item-homestay {
+            @include size-responsive(100%, auto);
+            padding: 0 2% 2% 0;
+            .card-homestay {
+              @include size-responsive(100%, auto);
+              border-radius: 5px;
+              overflow: hidden;
+              box-shadow: 0 3px 8px 1px $clr-white3;
+              transition: .3s ease;
+              cursor: pointer;
+              .img-homestay {
+                @include size-responsive(100%, 16vw);
+                overflow: hidden;
+              }
+              img {
+                @include size-responsive(100%, 100%);
+              }
+              .info-homestay {
+                @include size-responsive(100%, auto);
+                padding: 0 2%;
+                display: flex;
+                flex-direction: column;
+                background-color: $clr-white;
+                .txt-name-homestay {
+                  font-size: 150%;
+                  font-weight: bolder;
+                  text-align: center;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+                span {
+                  font-size: 120%;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+            }
+            .card-homestay:hover {
+              transform: scale(1.1);
+            }
+          }
+        }
+      }
+      .col-paging {
+        @include size-responsive(100%, auto);
+        padding: 2% 0 0 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+  .row-contain {
+    .col-contain {
+      .row-contain-place {
+        .col-list-place {
+          .row-list-place {
+            .col-contain-item-place {
+              .card-place {
+                .info-place {
+                  .txt-name-place {
+                    font-size: 120% !important;
+                  }
+                  span {
+                    font-size: 100% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      /*---------------Hot Homestay list---------------*/
+      .row-contain-hot-homestay {
+        .col-txt-hot-homestay {
+          font-size: 120%;
+        }
+        .col-list-hot-homestay {
+          .row-list-hot-homestay {
+            .col-contain-item-homestay {
+              .card-homestay {
+                .info-homestay {
+                  .txt-name-homestay {
+                    font-size: 100%;
+                  }
+                  span {
+                    font-size: 90%;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 960px) {
+
+}
+
+@media only screen and (max-width: 854px) {
+  .row-contain {
+    .col-contain {
+      .row-txt-welcome-user {
+        font-size: 180% !important;
+      }
+      .row-contain-place {
+        .col-txt-place {
+          font-size: 120% !important;
+        }
+        .col-list-place {
+          .row-list-place {
+            .col-contain-item-place {
+              .card-place {
+                .info-place {
+                  .txt-name-place {
+                    font-size: 100% !important;
+                  }
+                  span {
+                    font-size: 80% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .row-contain {
+    .col-contain {
+      .row-contain-place {
+        .col-list-place {
+          .row-list-place {
+            .col-contain-item-place {
+              .card-place {
+                .info-place {
+                  .txt-name-place {
+                    font-size: 90% !important;
+                  }
+                  span {
+                    font-size: 70% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 640px) {
+
+}
+
+@media only screen and (max-width: 576px) {
+  .row-contain {
+    margin-top: 25% !important;
+    .col-contain {
+      /*---------------Welcome---------------*/
+      .row-txt-welcome-user {
+        .txt-welcome-user {
+          font-size: 80%;
+        }
+      }
+      .row-contain-place {
+        .col-txt-place {
+          font-size: 100% !important;
+        }
+        .col-list-place {
+          .row-list-place {
+            .col-contain-item-place {
+              .card-place {
+                .img-place {
+                  height: auto;
+                }
+                .info-place {
+                  .txt-name-place {
+                    font-size: 90% !important;
+                  }
+                  span {
+                    font-size: 60% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .row-contain-hot-homestay {
+        .col-txt-hot-homestay {
+          font-size: 100% !important;
+        }
+        .col-list-hot-homestay {
+          .row-list-hot-homestay {
+            .col-contain-item-homestay {
+              .card-homestay {
+                .img-homestay {
+                  height: 33vw;
+                }
+                .info-homestay {
+                  .txt-name-homestay {
+                    font-size: 90% !important;
+                  }
+                  span {
+                    font-size: 70% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .row-contain-suggest-homestay {
+        .col-txt-suggest-homestay {
+          font-size: 100% !important;
+        }
+        .col-list-suggest-homestay {
+          .row-list-suggest-homestay {
+            .col-contain-item-homestay {
+              .card-homestay {
+                .img-homestay {
+                  height: 33vw;
+                }
+                .info-homestay {
+                  .txt-name-homestay {
+                    font-size: 90% !important;
+                  }
+                  span {
+                    font-size: 70% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+.row-contain {
+    margin-top: 25% !important;
+    .col-contain {
+      .row-contain-place {
+        .col-list-place {
+          .row-list-place {
+            .col-contain-item-place {
+              .card-place {
+                .info-place {
+                  .txt-name-place {
+                    font-size: 70% !important;
+                  }
+                  span {
+                    font-size: 50% !important;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

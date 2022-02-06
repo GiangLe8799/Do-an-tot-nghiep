@@ -1,0 +1,202 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-homestay-list-isActive">
+      <div class="list">
+        <div class="item" [ngClass]="{'item-active': typeShow === 1}" (click)="showAllList()">
+          <div class="left">
+            <span class="txt-number">
+              {{countAll}}
+            </span>
+            <span class="txt-title">
+              Tất cả
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='far fa-building'></i>
+            </span>
+          </div>
+        </div>
+        <div class="item" [ngClass]="{'item-active': typeShow === 2}" (click)="showListByStatus(1)">
+          <div class="left">
+            <span class="txt-number">
+              {{countActive}}
+            </span>
+            <span class="txt-title">
+              Hoạt động
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='far fa-lightbulb'></i>
+            </span>
+          </div>
+        </div>
+        <div class="item" [ngClass]="{'item-active': typeShow === 3}" (click)="showListByStatus(0)">
+          <div class="left">
+            <span class="txt-number">
+              {{countDisabled}}
+            </span>
+            <span class="txt-title">
+              Không hoạt động
+            </span>
+          </div>
+          <div class="right">
+            <span class="txt-icon">
+              <i class='fas fa-lightbulb'></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row row-filter-homestay-list">
+      <button class="btn btn-success btn-add" [routerLink]="['/host','homestay-list','add']">
+        <i class="fas fa-plus"></i>
+        Thêm homestay
+      </button>
+      <select class="select-type" name="typeHomestay" id="typeHomestay" (change)="sortHomestayByType()">
+        <option value="all" disabled selected>
+          Kiểu chỗ ở
+        </option>
+        <option value="all">
+          Tất cả
+        </option>
+        <option value="{{type.value}}" *ngFor="let type of typeList">
+          {{type.name}}
+        </option>
+      </select>
+      <div class="col-search">
+        <div class="contain-search">
+          <input type="search" class="input-fill-in" size="50" placeholder="Tên homestay..." id="search" name="search" [(ngModel)]="searchKey">
+          <button type="submit" class="btn btn-warning" (click)="searchHomestay()">
+            <i class='fa fa-search'></i>
+          </button>
+        </div>
+        <span class="txt-mess">
+          {{messErrorSearch}}
+        </span>
+      </div>
+    </div>
+    <div class="row row-homestay-list">
+      <div class="col-12 col-homestay-list">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="txt-left">
+                <span class="txt-title">
+                  STT
+                </span>
+              </th>
+              <th class="txt-left">
+                <span class="txt-title txt-left">
+                  Tên
+                </span>
+              </th>
+              <th class="txt-left">
+                Loại
+              </th>
+              <th class="txt-left">
+                Địa chỉ
+              </th>
+              <th class="txt-left">
+                <span class="txt-title">
+                  Giá
+                </span>
+              </th>
+              <th>
+                Hiện/ẩn
+              </th>
+              <th>
+                Chỉnh sửa
+              </th>
+              <!-- <th>
+                Xoá
+              </th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <!---------------Item homestay--------------->
+            <tr *ngFor="let homestay of homestayList | paginate: {
+              itemsPerPage: 10,
+              currentPage: page,
+              totalItems: homestayList.length}; let i = index">
+              <td class="td-txt-left">
+                {{i+1}}
+              </td>
+              <td class="td-txt-left td-oversize">
+                {{homestay.homestayName}}
+              </td>
+              <td class="td-txt-left td-oversize">
+                {{showTypeText(homestay.homestayTypeName)}}
+              </td>
+              <td class="td-txt-left td-oversize">
+                {{homestay.address}}
+              </td>
+              <td class="td-txt-left">
+                {{currency.format(homestay.cost)}}đ/Đêm
+              </td>
+              <td>
+                <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="homestay.status == 1" (click)="homestayIsActive(homestay)">
+                  <i class='fas fa-eye'></i>
+                </button>
+                <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="homestay.status == 0" (click)="homestayIsActive(homestay)">
+                  <i class='fas fa-eye-slash'></i>
+                </button>
+              </td>
+              <td>
+                <a type="button" class="btn btn-warning" (click)="navigateToHomestayEdit(homestay.id)">
+                  <i class='fas fa-edit'></i>
+                </a>
+              </td>
+              <!-- <td>
+                <button class="btn btn-danger" data-toggle="modal" data-target="#messQuestion" (click)="deleteHomestay()">
+                  <i class='fas fa-trash'></i>
+                </button>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row row-paging">
+      <pagination-controls class="paging text-center" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message"
+    [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <!--message question-->
+  <div class="modal fade" id="messQuestion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{messQuestion}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES()">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

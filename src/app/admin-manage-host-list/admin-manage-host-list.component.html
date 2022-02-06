@@ -1,0 +1,140 @@
+<div class="contain">
+  <h1>Danh sách đăng ký chủ nhà</h1>
+  <div class="head">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 left">
+          <div class="row">
+            <div class="col-sm-6">
+              <a target="_blank" rel="noopener noreferrer" class="text-primary txt-sort" (click)="showByRequests()">
+                Đang yêu cầu({{countRequest}})
+              </a>
+              <br>
+              <a class="text-success txt-sort" (click)="showByAccountActive()">
+                Đang hoạt động({{countActive}})
+              </a>
+              <br>
+              <a class="text-secondary txt-sort" (click)="showByAccountNotActive()" >
+                Không hoạt động({{countDisabled}})
+              </a>
+              <br>
+            </div>
+            <div class="col-sm-6">
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 right">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="search" [(ngModel)]="searchKey" placeholder="Tìm kiếm tên,SĐT,email,..."
+              aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <button type="submit" class="btn btn-primary" (click)="checkSearching()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <div class="err">
+            {{mesError}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table main-table">
+        <thead>
+          <th scope="col" class="th-txt">STT</th>
+          <th scope="col" class="th-txt">Họ và tên</th>
+          <th scope="col" class="th-txt">Email</th>
+          <th scope="col" class="th-txt">SĐT</th>
+          <th scope="col">
+            Hoạt động
+          </th>
+          <th scope="col">
+            Trở thành chủ nhà ?
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users | paginate:{
+            itemsPerPage: 5,
+            currentPage: page,
+            totalItems: totalLengthAcc}; let i = index">
+            <td class="td-txt">
+              {{i+1}}
+            </td>
+            <td class="td-txt">
+              {{user.fullName}}
+            </td>
+            <td class="td-txt">
+              {{user.email}}
+            </td>
+            <td class="td-txt">
+              {{user.phoneNumber}}
+            </td>
+            <td>
+              <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="user.status == 1"
+                (click)="accountIsActive(user)">
+                <i class='fas fa-eye'></i>
+              </button>
+              <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="user.status == 0"
+                (click)="accountIsActive(user)">
+                <i class='fas fa-eye-slash'></i>
+              </button>
+            </td>
+            <td>
+              <div class="contain-accept-become-host" *ngIf="user.role =='ROLE_BE_HOST'">
+                <button class="btn btn-success btn-accept" data-toggle="modal" data-target="#messQuestion"
+                  (click)="clickAcceptBecomeHost(user)">
+                  Chấp nhận
+                </button>
+                <button class="btn btn-danger btn-cancel" data-toggle="modal" data-target="#messQuestion"
+                  (click)="clickCancelBecomeHost(user)">
+                  Từ chối
+                </button>
+              </div>
+              <div class="contain-accept-become-host" *ngIf="user.role =='ROLE_HOST'">
+                Đang là Chủ nhà
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-12 col-contain-paging">
+      <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+    </div>
+    <!--Question Message-->
+    <div class="modal fade" id="messQuestion">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title text-danger">
+              Thông báo
+            </h4>
+            <button type="button" class="close" data-dismiss="modal">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{messQuestion}}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES(currUser)">
+              Có
+            </button>
+            <button type="button" class="btn btn-light" data-dismiss="modal">
+              Không
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--toast message-->
+    <div class="col-12 col-message" [ngClass]="{'displayMessage': displayMess}">
+      <div class="contain-toast">
+        <div class="contain-message">
+          <span>
+            {{ mess }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

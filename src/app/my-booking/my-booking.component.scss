@@ -1,0 +1,355 @@
+$clr-yellow:#ffcc00;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+$clr-green: #00cc00;
+$clr-yellow1:#ffcc00;
+$clr-red:#ff1a1a;
+$clr-orange:#ffa31a;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+@mixin align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin flex-direction($dis) {
+  display: flex;
+  flex-direction: $dis;
+}
+
+@mixin flex-wrap($wrap) {
+  display: flex;
+  flex-wrap: $wrap;
+}
+
+@mixin flex-justify-content($content) {
+  display: flex;
+  justify-content: $content;
+}
+
+.row-contain  {
+  @include size-responsive(100%, auto);
+  margin: 0;
+  padding: 7% 0 0 0;
+  .col-contain {
+    @include size-responsive(100%, auto);
+    padding: 0 10%;
+    .row-sort {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      .select-sort {
+        padding: 1% 2%;
+        border-radius: 5px;
+      }
+    }
+    .row-my-booking-list {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      .col-my-booking-list {
+        @include size-responsive(100%, auto);
+        .row-title {
+          @include size-responsive(100%, auto);
+          margin: 1% 0;
+         @include flex-justify-content(center);
+        }
+        .row-my-booking-item {
+          @include size-responsive(100%, auto);
+          margin: 0 0 2% 0;
+          padding: 1%;
+          background-color: $clr-white;
+          border-radius: 5px;
+          .col-homestay {
+            @include size-responsive(100%, auto);
+            @include flex-direction(row);
+            padding-left: 0;
+            .contain-img {
+              @include size-responsive(80%, auto);
+              overflow: hidden;
+              img {
+                @include size-responsive(100%, auto);
+              }
+            }
+            .contain-info {
+              @include size-responsive(100%, auto);
+              @include flex-direction(column);
+              padding: 0 1%;
+              .txt-name {
+                font-size: 120%;
+                font-weight: bolder;
+              }
+              span {
+                font-size: 100%;
+              }
+            }
+          }
+          .col-homestay:hover {
+            background-color: $clr-white1;
+            cursor: pointer;
+          }
+          .col-info-booking {
+            @include size-responsive(100%, auto);
+            padding: 1%;
+            .contain-info-booking {
+              @include size-responsive(100%, auto);
+              display: flex;
+              flex-wrap: wrap;
+              flex-direction: column;
+              .contain-top, .contain-bottom {
+                @include size-responsive(100%, auto);
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+              }
+              .contain-top {
+                padding: 0 0 10px 0;
+              }
+              .item-info {
+                @include flex-direction(column);
+                .txt-title {
+                  color: $clr-white6;
+                  font-size: 90%;
+                }
+                span {
+                  font-weight: bolder;
+                }
+              }
+            }
+          }
+          .col-status {
+            @include size-responsive(100%, auto);
+            text-align: center;
+            padding: 1%;
+            position: relative;
+            .txt-status {
+              padding: 1% 2%;
+              border-radius: 3px;
+              color: $clr-white;
+              position: absolute;
+              top: 0;
+              right: 0;
+            }
+            .txt-wait_accept {
+              background-color: #ffae00;
+            }
+            .txt-accept {
+              background-color: green;
+            }
+            .txt-decline {
+              background-color: #ff3419;
+            }
+            .txt-checked {
+              background-color: #fffb10;
+            }
+            .txt-cancel {
+              background-color: #ff0000;
+            }
+            .txt-paying {
+              background-color: #3aa6ff;
+            }
+            .btn-feedback {
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              font-weight: bold;
+            }
+          }
+          .disabled {
+            display: none;
+          }
+          .col-btn-cancelled-booking {
+            @include size-responsive(100%, auto);
+            padding: 1%;
+            text-align: center;
+            .btn-cancelled-booking {
+              font-size: 100%;
+            }
+          }
+        }
+      }
+      .col-paging {
+        @include size-responsive(100%, auto);
+        @include flex-justify-content(center);
+      }
+    }
+  }
+  /*----------------------Modal Feedback----------------------*/
+  #messFeedback {
+    .modal-body {
+      .txt-feedback {
+        @include size-responsive(100%, auto);
+      }
+    }
+  }
+  /*----------------------Toast Message----------------------*/
+  .col-message {
+    padding: 0 40%;
+    position: fixed;
+    z-index: 100;
+    right: 0;
+    .contain-toast {
+      margin: 0;
+      border-radius: 5px;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      .contain-message {
+        padding: 1%;
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        color: $clr-white;
+      }
+      .contain-close {
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        .btn-close {
+          color: $clr-white;
+        }
+      }
+    }
+  }
+  .displayMessage {
+    animation: moveBoxMessage 2s;
+    .contain-toast {
+      background-color:green;
+    }
+  }
+  .displayWarnMessage {
+    animation: moveBoxMessage 2s;
+    .contain-toast {
+      background-color:orange;
+    }
+  }
+  .displayErrorMessage {
+    animation: moveBoxMessage 2s;
+    .contain-toast {
+      background-color:red;
+    }
+  }
+  @keyframes moveBoxMessage {
+    0%   {
+      display: none;
+      top: 10%;
+      opacity: 0;
+    }
+    20%  {
+      display: block;
+      top: 12%;
+      opacity: 1;
+    }
+    80%  {
+      display: block;
+      top: 12%;
+      opacity: 1;
+    }
+    100% {
+      display: none;
+      top: 10%;
+      opacity: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 960px) {
+
+}
+
+@media only screen and (max-width: 854px) {
+  .row-contain  {
+    .col-contain {
+      .row-my-booking-list {
+        .col-my-booking-list {
+          .row-my-booking-item {
+            .col-homestay {
+              @include flex-direction(column);
+              .contain-img {
+                width: 100%;
+              }
+            }
+            .col-info-booking {
+              .contain-info-booking {
+                .item-info {
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .row-contain  {
+    padding-top: 10%;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+
+}
+
+@media only screen and (max-width: 576px) {
+  .row-contain  {
+    padding-top: 25%;
+    .col-contain {
+      padding: 0 1%;
+      .row-my-booking-list {
+        .col-my-booking-list {
+          .row-my-booking-item {
+            .col-homestay {
+              .contain-img {
+
+              }
+            }
+            .col-info-booking {
+              .contain-info-booking {
+                .item-info {
+                  .txt-name {
+                    text-align: center;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

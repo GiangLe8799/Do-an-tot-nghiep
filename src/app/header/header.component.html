@@ -1,0 +1,136 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-menu-bars">
+      <div class="col-2 col-contain-menu-mobile" [ngClass]="{'changeBgColor': isChangeBgColorIcMenuMobile}">
+        <span #menuMobi_1 class="ic-bar-menu-mobile" (click)="openMenuMobile()">
+          <i #menuMobi_2 class="fa fa-bars"></i>
+        </span>
+      </div>
+      <!------------Logo------------>
+      <div class="col col-sm-6 col-contain-logo">
+        <div class="row row-contain-logo">
+          <div class="col-4 col-sm-4 col-logo">
+            <img [src]="logo" class="img-logo" [routerLink]="['']" routerLinkActive="changeTxtColor">
+            <span class="txt-name-web" [routerLink]="['']">
+              EasyStay
+            </span>
+          </div>
+          <div class="col-12 col-sm col-search">
+            <input type="search" name="searchKey" id="searchKey" value="{{searchKey}}"
+              placeholder="Tìm tên tỉnh/thành phố, tên homestay..." (keyup.enter)="searchHomestay()">
+            <button class="btn btn-warning btn-search" (click)="searchHomestay()">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col col-sm col-side"></div>
+      <!------------Menu------------>
+      <div class="col-3 col-sm-4 col-md-2 col-contain-menu">
+        <div class="row row-contain-menu">
+          <div class="menu-item" [routerLink]="['/blog-list']" routerLinkActive="changeTxtColor">
+            Blog
+          </div>
+          <div class="menu-item" [routerLink]="['/about']" routerLinkActive="changeTxtColor">
+            Giới thiệu
+          </div>
+          <div class="menu-item" [routerLink]="['/contact']" routerLinkActive="changeTxtColor">
+            Liên hệ
+          </div>
+        </div>
+      </div>
+      <!------------Menu User------------>
+      <div class="col-3 col-sm-1 col-contain-function-user">
+        <div *ngIf="!isLoggedIn" class="row row-contain-sign-in">
+          <a [routerLink]="['/auth','login']" routerLinkActive="changeTxtColor">
+            Đăng nhập
+          </a>
+          /
+          <a [routerLink]="['/auth','register']" routerLinkActive="changeTxtColor">
+            Đăng Ký
+          </a>
+        </div>
+        <div *ngIf="isLoggedIn" class="row row-contain-function-user">
+          <!-- <div class="col-4 col-sm-4 col-bell-notify">
+            <span class="ic-notify">
+              <i class='fas fa-circle'></i>
+            </span>
+          </div> -->
+          <div class="col-12 col-contain-menu-user">
+            <img #menuUser [src]="defaultAva" alt="" class="img-ava-user" (click)="openMenuUser()">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!------------Drop down------------>
+    <div class="row row-drop-down">
+      <!------------Drop down menu mobile------------>
+      <ul class="col-12 col-menu-mobile" [ngStyle]="{'display': displayMenuMobile}">
+        <li class="row row-menu-item" [routerLink]="['/blog-list']" routerLinkActive="changeTxtColor">
+          Blog homestay
+        </li>
+        <li class="row row-menu-item" [routerLink]="['/about']" routerLinkActive="changeTxtColor">
+          Giới thiệu
+        </li>
+        <li class="row row-menu-item" [routerLink]="['/contact']" routerLinkActive="changeTxtColor">
+          Liên hệ
+        </li>
+      </ul>
+      <!------------Drop down menu user------------>
+      <ul class="col-12 col-sm-2 col-menu-user" [ngStyle]="{'display': displayMenuUser}">
+        <li class="row row-item-menu-user" id="" [routerLink]="['/profile','edit']"
+          routerLinkActive="router-link-active">
+          <div class="col-4 col-sm-2 col-icon">
+            <i class='fas fa-user-cog'></i>
+          </div>
+          <div class="col-8 col-sm-10 col-name-item">
+            Cài đặt tài khoản
+          </div>
+        </li>
+        <li class="row row-item-menu-user" id="" [routerLink]="['/my-booking']" routerLinkActive="router-link-active">
+          <div class="col-4 col-sm-2 col-icon">
+            <i class='far fa-calendar-alt'></i>
+          </div>
+          <div class="col-8 col-sm-10 col-name-item">
+            Đặt chỗ của bạn
+          </div>
+        </li>
+        <li *ngIf="currentUser.role == 'ROLE_HOST'" class="row row-item-menu-user" id=""
+          [routerLink]="['/host','homestay-list']" routerLinkActive="router-link-active">
+          <div class="col-4 col-sm-2 col-icon">
+            <i class='fas fa-briefcase'></i>
+          </div>
+          <div class="col-8 col-sm-10 col-name-item">
+            Chủ nhà
+          </div>
+        </li>
+        <li *ngIf="currentUser.role == 'ROLE_MARKETER'" class="row row-item-menu-user" id="" [routerLink]="['/admin']"
+          routerLinkActive="router-link-active">
+          <div class="col-4 col-sm-2 col-icon">
+            <i class='fas fa-id-card-alt'></i>
+          </div>
+          <div class="col-8 col-sm-10 col-name-item">
+            Marketer
+          </div>
+        </li>
+        <li *ngIf="currentUser.role == 'ROLE_ADMIN'" class="row row-item-menu-user" id="" [routerLink]="['/admin']"
+          routerLinkActive="router-link-active">
+          <div class="col-4 col-sm-2 col-icon">
+            <i class='fas fa-id-badge'></i>
+          </div>
+          <div class="col-8 col-sm-10 col-name-item">
+            Admin
+          </div>
+        </li>
+        <li class="row row-item-menu-user" id="" (click)="logout()">
+          <div class="col-4 col-sm-2 col-icon">
+            <i class='fas fa-power-off'></i>
+          </div>
+          <div class="col-8 col-sm-10 col-name-item">
+            Đăng xuất
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

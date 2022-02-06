@@ -1,0 +1,72 @@
+<div class="row contain">
+  <div class="col-12 col-sm-2 col-left">
+      <div class="select-function">
+          <span>
+            <i class='fas fa-clipboard'></i>
+            <span>
+              Danh sách chức năng admin
+            </span>
+            <i class='fas fa-angle-down ic-arrow-down'></i>
+          </span>
+      </div>
+      <div class="function">
+          <a [routerLink]="['/admin','account-list']" routerLinkActive="border-act">
+              <span>
+                <i class='fas fa-address-book'></i>
+              </span>
+              <span>Quản lí tài khoản</span>
+          </a>
+          <a [routerLink]="['/admin','account-host-list']" routerLinkActive="border-act">
+            <span>
+              <i class='fas fa-address-card'></i>
+            </span>
+            <span>Đăng ký chủ nhà</span>
+        </a>
+          <a [routerLink]="['/admin','location-list']" routerLinkActive="border-act">
+              <span>
+                <i class='fas fa-map-marked-alt'></i>
+              </span>
+              <span>Quản lí địa điểm</span>
+          </a>
+          <a [routerLink]="['/admin','food-list']" routerLinkActive="border-act">
+              <span>
+                <i class='	fas fa-pizza-slice'></i>
+              </span>
+              <span>Đặc sản tỉnh thành</span>
+          </a>
+          <a [routerLink]="['/admin','blog-list']" routerLinkActive="border-act">
+              <span>
+                <i class='fas fa-book'></i>
+              </span>
+              <span>Quản lí blog</span>
+          </a>
+          <!-- <a [routerLink]="['/admin','']">
+              <span>
+                <i class='fas fa-hand-holding-usd'></i>
+              </span>
+              <span>Giao dịch</span>
+              <a [routerLink]="['/admin','transCustomer']" routerLinkActive="border-act">
+                  <span>
+                    <i class='far fa-handshake'></i>
+                  </span>
+                  <span class="sm-span">Giao dịch với khách hàng</span>
+              </a>
+              <a [routerLink]="['/admin','transAdmin']" routerLinkActive="border-act">
+                  <span>
+                    <i class='far fa-handshake'></i>
+                  </span>
+                  <span class="sm-span">Giao dịch với chủ nhà</span>
+              </a>
+          </a> -->
+          <a [routerLink]="['/admin','setting-website']" routerLinkActive="border-act">
+              <span>
+                <i class='fas fa-cog'></i>
+              </span>
+              <span>Cài đặt</span>
+          </a>
+      </div>
+  </div>
+  <div class="col-12 col-sm-10 content col-right">
+      <router-outlet></router-outlet>
+  </div>
+</div>

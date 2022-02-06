@@ -1,0 +1,128 @@
+<div class="row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-contain-back-page">
+      <a type="button" class="btn btn-secondary" [routerLink]="['/host','booking-request']">
+        <i class='fas fa-arrow-left'></i>
+      </a>
+    </div>
+    <!---------------Detail book homestay--------------->
+    <div class="row row-contain-info-book-and-detail-book-homestay">
+      <div class="col-12 col-sm-8 col-contain-info-book">
+        <h4>
+          Thông tin đặt chỗ
+        </h4>
+        <div class="row row-info-book">
+          <span>
+            Số khách
+          </span>
+          <span class="txt-amount-person">
+            {{currentReservation.numberOfPeople}} khách
+          </span>
+          <span>
+            {{numberOfBookedDays}} đêm tại {{currentReservation.homestay!.homestayName}} - {{currentReservation.homestay!.address}}
+          </span>
+        </div>
+        <div class="row row-contain-date-booking">
+          <div class="col-6 col-left">
+            <div class="contain-date">
+              <hr class="underline-left">
+              <span>
+                Nhận phòng
+              </span>
+              <h4>
+                {{currentReservation.startDate | date: 'dd - MM - YYYY'}}
+              </h4>
+            </div>
+          </div>
+          <div class="col-6 col-right">
+            <div class="contain-date">
+              <hr class="underline-right">
+              <span>
+                Trả phòng
+              </span>
+              <h4>
+                {{currentReservation.endDate | date: 'dd - MM - YYYY'}}
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="row row-info-guest-booking">
+          <h4>
+            Thông tin của khách
+          </h4>
+          <form>
+            <div class="col-12 col-item">
+              <h5>
+                Tên Khách hàng
+              </h5>
+              <span>
+                Họ tên trên CMND/ Thẻ căn cước
+              </span>
+              <input type="text" name="fullname" id="fullname" value="{{currentReservation.user!.fullName}}" maxlength="50" disabled>
+            </div>
+            <div class="col-12 col-item">
+              <h5>
+                Số điện thoại
+              </h5>
+              <input type="tel" name="phone" id="phone" minlength="10" maxlength="11" value="{{currentReservation.user!.phoneNumber}}" disabled>
+            </div>
+            <div class="col-12 col-item">
+              <h5>
+                Email
+              </h5>
+              <input type="email" name="email" id="email" value="{{currentReservation.user!.email}}" disabled>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-sm-4 col-detail-book-homestay">
+        <h4>
+          Chi tiết đặt phòng
+        </h4>
+        <div class="contain-detail-book-homestay">
+          <div class="row row-homestay">
+            <div class="col-4 col-img">
+              <img [src]="imgDefaultHomestay">
+            </div>
+            <div class="col col-name">
+              <span class="txt-name">
+                {{currentReservation.homestay!.homestayName}}
+              </span>
+              <span>
+                {{currentReservation.homestay!.address}}
+              </span>
+            </div>
+          </div>
+          <div class="row row-book-detail">
+            <span>
+              <i class='far fa-calendar-alt'></i>
+              {{numberOfBookedDays}} đêm · {{currentReservation.startDate | date: 'dd/MM/YYYY'}} - {{currentReservation.endDate | date: 'dd/MM/YYYY'}}
+            </span>
+            <span>
+              <i class='fas fa-user-circle'></i>
+              {{currentReservation.numberOfPeople}} người
+            </span>
+          </div>
+          <div class="row row-price">
+            <div class="col-12 col-item">
+              <span>
+                Giá thuê 1 đêm
+              </span>
+              <span class="price">
+                {{currency.format(currentReservation.homestay!.cost)}}₫
+              </span>
+            </div>
+            <div class="col-12 col-item col-sum-price">
+              <span>
+                Tổng tiền
+              </span>
+              <span class="price">
+                {{currency.format(currentReservation.cost)}}₫
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

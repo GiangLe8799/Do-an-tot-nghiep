@@ -1,0 +1,355 @@
+<div class="contain">
+  <h1>Danh sách điểm đến</h1>
+  <div class="head">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 left">
+          <div class="row">
+            <div class="col-sm-6">
+              <select class="opt" name="city" id="city" (change)="sortByCity($event)">
+                <option id="-1" [value]="null" disabled selected>
+                  Tỉnh/Thành phố
+                </option>
+                <option id="0" value="all">
+                  Tất cả
+                </option>
+                <option id="{{pro.id}}" value="{{pro.id}}" *ngFor="let pro of provinces">
+                  {{pro.provinceName}}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+              <select class="opt" name="district" id="district" (change)="sortByDistrict($event)">
+                <option id="-1" [value]="null" disabled selected>
+                  Quận/Huyện
+                </option>
+                <option id="dis0" value="all">
+                  Tất cả
+                </option>
+                <option id="{{dis.id}}" value="{{dis.id}}" *ngFor="let dis of districts;">
+                  {{dis.districtName}}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="roww-active">
+            <div class="row">
+              <div class="col-sm-8">
+                <span class="text-primary txt-sort" (click)="showByAllDestination()">
+                  Tất cả ({{allLength}})
+                </span>
+                <br>
+                <span class="text-success txt-sort" (click)="getDestinationByStatus(1)">
+                  Đang hoạt động({{activeLength}})
+                </span>
+                <br>
+                <span class="text-secondary txt-sort" (click)="getDestinationByStatus(0)">
+                  Không hoạt động({{inactiveLength}})
+                </span>
+              </div>
+              <div class="col-sm-4">
+                <button type="button" class="btn btn-primary add" data-toggle="modal" data-target=".modal0">
+                  <i class='fas fa-plus'></i>
+                  Thêm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 right">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="search" placeholder="Tìm kiếm địa điểm...">
+            <button type="submit" class="btn btn-primary" (click)="checkSearching()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <div class="err">{{messSearch}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table main-table">
+      <thead>
+        <th scope="col" class="th-txt">STT</th>
+        <th scope="col">Ảnh</th>
+        <th scope="col" class="th-txt">Tên điểm đến</th>
+        <th scope="col" class="th-txt">Thành phố</th>
+        <th scope="col">Hiện/ẩn</th>
+        <th scope="col">Action</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let des of destinations | paginate:{
+          itemsPerPage: 5,
+          currentPage: page,
+          totalItems: destinations.length}; let i = index">
+          <td class="td-txt">
+            {{i+1}}
+          </td>
+          <td>
+            <img [src]="imgList.get('des'+des.destinationName+'.jpg')" alt="" class="des-photo">
+          </td>
+          <td class="td-txt">
+            {{des.destinationName}}
+          </td>
+          <td class="td-txt">
+            {{des.district!.province!.provinceName}}
+          </td>
+          <td>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="des.status==1" (click)="sightseeingIsActive(des)">
+              <i class='fas fa-eye'></i>
+            </button>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="des.status!=1" (click)="sightseeingIsActive(des)">
+              <i class='fas fa-eye-slash'></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-warning" data-toggle="modal" data-target=".modal1" (click)="getCurrentDestination(des.id)">
+              <i class='fas fa-edit'></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 col-contain-paging">
+    <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message"
+    [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="messQuestion">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title text-danger">
+          Thông báo
+        </h4>
+        <button type="button" class="close" data-dismiss="modal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{messQuestion}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES(currentDestination.id)">
+          Có
+        </button>
+        <button type="button" class="btn btn-light" data-dismiss="modal">
+          Không
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal modal0 fade" id="exampleModalLong">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Thêm địa điểm mới
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-7 mod-left">
+              <div class="form-group">
+                <label for="addDestination">Tên điểm đến</label>
+                <input type="text" name="destination" class="form-control" id="addDestination" maxlength="200"
+                  placeholder="Nhập tên điểm đến" required>
+                <label for="addDestination" class="mess-warn">
+                  {{messAddDestination}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="">Tỉnh/Thành phố</label><br>
+                <select class="opt" (change)="newDestinationProvince($event)">
+                  <option disabled selected>---------</option>
+                  <option value="{{pro.id}}" *ngFor="let pro of provinces">
+                    {{pro.provinceName}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="">Quận/huyện</label><br>
+                <select (change)="newDestinationDistrict($event)">
+                  <option value="{{dis.id}}" *ngFor="let dis of newDistricts;">
+                    {{dis.districtName}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="addDescription">Mô tả</label>
+                <br>
+                <textarea class="form-control" rows="4" [(ngModel)]="addDescription" id="addDescription" name="description"
+                  placeholder="Thêm mô tả...">
+                </textarea>
+                <label for="addDescription" class="mess-warn">
+                  {{messAddDescription}}
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-5 mod-right">
+              <div class="row row-img-sightseeing">
+                <div class="contain-img-sightseeing"
+                  [ngClass]="{'displayNoneImgSightseeing': isDisplayNoneAddImgSightseeing}">
+                  <img [src]="imgAddSightseeing">
+                  <button class="btn btn-cancel" (click)="cancelAddImgSightseeing()">
+                    <i class='far fa-times-circle'></i>
+                  </button>
+                </div>
+                <label for="imgSightseeing"
+                  [ngClass]="{'displayNoneAddImgSightseeing': isDisplayNoneAddDefaultImgSightseeing}">
+                  <span class="txt-icon">
+                    <i class='far fa-image'></i>
+                  </span>
+                  <span class="txt-des">
+                    Click ở đây để chọn ảnh
+                  </span>
+                </label>
+                <input type="file" #inputAddImgSightseeing name="imgSightseeing" id="imgSightseeing"
+                  (change)="onSelectAddImgSightseeing($event)" accept="image/*" required />
+                <span class="txt-mess">
+                  {{messAddImgSightseeing}}
+                </span>
+                <br>
+              </div>
+              <div class="form-group">
+                <label for="">Trạng thái*</label><br>
+                <label for="active">
+                  <input type="radio" name="newDestinationStatus" id="newStatusActive" value="1" checked> Hoạt động
+                </label>
+                <br>
+                <label for="inactive">
+                  <input type="radio" name="newDestinationStatus" id="newStatusInactive" value="0"> Không hoạt động
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary addnew" id="addSightseeing" (click)="addSightseeing()">
+            Thêm mới
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal modal1 fade" id="exampleModalLong">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Chỉnh sửa địa điểm
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-7 mod-left">
+              <div class="form-group">
+                <label for="editDestination">Tên điểm đến</label>
+                <input type="text" name="updateName" class="form-control" value="{{currentDestination.destinationName}}"
+                  id="updateName" placeholder="Nhập tên điểm đến" maxlength="200" required>
+                <label for="editDestination" class="mess-warn">
+                  {{messEditDestination}}
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="">Tỉnh/Thành phố</label><br>
+                <select name="updateProvince" id="updateProvince" (change)="getUpdateDistricts($event)">
+                  <option value="{{pro.id}}" *ngFor="let pro of updateProvinces"
+                  [selected]="pro.id == currentDestination.district!.province!.id">
+                    {{pro.provinceName}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="">Quận</label><br>
+                <select (change)="saveUpdateDisctrict($event)">
+                  <option value="{{dis.id}}" *ngFor="let dis of updateDistricts;"
+                  [selected]="dis.id == currentDestination.district!.id">
+                    {{dis.districtName}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="updateDescription">Mô tả</label>
+                <br>
+                <textarea class="form-control" name="updateDescription" id="updateDescription" rows="4"
+                value="{{currentDestination.description}}" placeholder="Thêm mô tả..." required>
+                </textarea>
+                <label for="updateDescription" class="mess-warn">
+                  {{messEditDescription}}
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-5 mod-right">
+              <div class="row row-img-sightseeing">
+                <div class="contain-img-sightseeing"
+                  [ngClass]="{'displayNoneImgSightseeing': isDisplayNoneEditImgSightseeing}">
+                  <img [src]="imgEditSightseeing">
+                  <button class="btn btn-cancel" (click)="cancelEditImgSightseeing()">
+                    <i class='far fa-times-circle'></i>
+                  </button>
+                </div>
+                <label for="imgEditSightseeing"
+                  [ngClass]="{'displayNoneAddImgSightseeing': isDisplayNoneEditDefaultImgSightseeing}">
+                  <span class="txt-icon">
+                    <i class='far fa-image'></i>
+                  </span>
+                  <span class="mess-warn">
+                    Click ở đây để chọn ảnh
+                  </span>
+                </label>
+                <input type="file" #inputEditImgSightseeing name="imgEditSightseeing" id="imgEditSightseeing"
+                  (change)="onSelectEditImgSightseeing($event)" accept="image/*" required />
+                <span class="txt-mess">
+                  {{messEditImgSightseeing}}
+                </span>
+                <br>
+              </div>
+              <div class="form-group">
+                <label for="">Trạng thái</label><br>
+                <label for="active">
+                  <input type="radio" name="editDestinationStatus" id="editStatusActive" value="1"
+                  [checked]="currentDestination.status == 1" > Hoạt động
+                </label>
+                <br>
+                <label for="inactive">
+                  <input type="radio" name="editDestinationStatus" id="editStatusInactive" value="0"
+                  [checked]="currentDestination.status == 0" > Không hoạt động
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-warning addnew" id="editSightseeing" (click)="editSightseeing()">
+            Cập nhật
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

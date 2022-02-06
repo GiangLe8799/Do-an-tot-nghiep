@@ -1,0 +1,361 @@
+{
+  "blog-list":[
+      {
+          "id": 1,
+          "name": "Top 15 homestay Tam Đảo giá tốt view đẹp mới nhất 2022",
+          "description": "Tam Đảo với khí hậu thoáng mát phong cảnh hữu tình từ lâu đã là một địa điểm du lịch được nhiều người ưa",
+          "image": "assets/images/tamdao.jpg",
+          "category": "Khám phá",
+          "owner": "Hồng Trà",
+          "status": "Inactive",
+          "date": "11/11/2021"
+      },
+      {
+          "id": 2,
+          "name": "4 homestay ngắm ruộng bậc thang từ giường",
+          "description": "Nghỉ tại những homestay ở Hoàng Su Phì du khách sẽ thức dậy trước biển mây và ruộng bậc thang trùng điệp.",
+          "image": "assets/images/HaGiang.jpg",
+          "category": "Điểm đến",
+          "owner": "Anh Duy",
+          "status": "Published",
+          "date": "11/5/2020"
+      },
+      {
+          "id": 3,
+          "name": "Gợi ý 3 homestay ở Hạ Long",
+          "description": "QUẢNG NINHHomestay container khu nghỉ mô phỏng làng Pháp...với đầy đủ tiện nghi, phù hợp cho kỳ nghỉ cuối tuần của",
+          "image": "assets/images/QuyNhon.jpg",
+          "category": "Điểm đến",
+          "owner": "Anh Duy",
+          "status": "Published",
+          "date": "11/5/2020"
+      },
+      {
+          "id": 4,
+          "name": "Tuyến cáp treo vượt biển có trụ cao nhất thế giới đi vào hoạt động",
+          "description": "Tuyến cáp treo mới nhất của Tập đoàn Sun Group với trụ cáp treo cao nhất thế giới đã được đưa vào sử dụng sáng...",
+          "image": "assets/images/captreo.jpg",
+          "category": "Trải nghiệm",
+          "owner": "Anh Duy",
+          "status": "Published",
+          "date": "11/5/2020"
+      },
+      {
+          "id": 5,
+          "name": "48 giờ khám phá 'Maldives Việt Nam'",
+          "description": "KHÁNH HÒA - Đảo Bình Hưng đầy nắng gió và làn nước xanh trong veo, là điểm đến lý tưởng cho chuyến nghỉ hè ngắn...",
+          "image": "assets/images/maldives.jpg",
+          "category": "Khám phá",
+          "owner": "Hoàng Giang",
+          "status": "Published",
+          "date": "11/5/2021"
+      },
+      {
+          "id": 6,
+          "name": "Khai trương bãi biển nhân tạo dài 1 km tại Đồ Sơn",
+          "description": "Một bãi biển nhân tạo rộng 23ha, trải dài hơn một km - bãi tắm được kỳ vọng sẽ khắc phục được tình trạng...",
+          "image": "assets/images/BaiXep.jpg",
+          "category":"Điểm đến",
+          "owner": "Hoàng Giang",
+          "status": "Published",
+          "date": "11/5/2021"
+      },
+      {
+          "id": 7,
+          "name": "Tư vấn cách lập kế hoạch tài chính cho chuyến du lịch hoàn hảo",
+          "description": "Chắc hẳn ai cũng biết, muốn có một chuyến du lịch hoàn hảo thì điều đầu tiên phải quan tâm đó chính là kế hoạch...",
+          "image": "assets/images/wordImportant.jpg",
+          "category":"Điểm đến",
+          "owner": "Kien Nguyen",
+          "status": "Published",
+          "date": "8/7/2021"
+      },
+      {
+          "id": 8,
+          "name": "Cách đặt phòng homestay tại Đà Lạt cho chuyến du lịch tiết kiệm nhất",
+          "description": "Cách đặt phòng tại Đà Lạt cho chuyến du lịch tiết kiệm nhất là điều mà rất nhiều bạn trẻ quan tâm khi mà du lịch...",
+          "image": "assets/images/daLat.jpg",
+          "category":"Giới thiệu",
+          "owner": "Hồng Trà",
+          "status": "Published",
+          "date": "25/6/2021"
+      }
+
+  ],
+  "homestay-business":[
+      {
+          "id": 1,
+          "name": "Homestay Huế lên tạp chí kiến trúc Mỹ",
+          "description": "Homestay được thiết kế theo phong cách tối giản với vật liệu chính là gỗ tái chế xuất hiện trên nhiều tạp chí...",
+          "image": "assets/images/Hue.jpg"
+      },
+      {
+          "id": 2,
+          "name": "Homestay ở Bãi Xép cho kỳ nghỉ ngắn ngày",
+          "description": "Với vẻ hoang sơ tuyệt đẹp, Bãi Xép (Quy Nhơn) vốn là điểm đến nhiều khách du lịch yêu thích khi đến dải đất...",
+          "image": "assets/images/BaiXep.jpg"
+      },
+      {
+          "id": 3,
+          "name": "Từ nào quan trọng nhất trong ngành khách sạn?",
+          "description": "Thay vì giới thiệu các tính năng, dịch vụ cao cấp, các ông lớn trong ngành khách sạn thêm từ 'Clean' vào chiến dịch...",
+          "image": "assets/images/wordImportant.jpg"
+      },
+      {
+          "id": 4,
+          "name": "Chàng trai người H'Mông làm homestay",
+          "description": "Căn nhà homestay nhỏ xinh của Vàng Seo Chô nằm lọt phía dưới một con dốc nhỏ, vắt bên cạnh một con suối đưa nước...",
+          "image": "assets/images/BaiXep.jpg"
+      },
+      {
+          "id": 5,
+          "name": "Review các homestay ở Đà Lạt giá rẻ, gần chợ dành cho “phượt thủ”",
+          "description": "Các homestay ở Đà Lạt giá rẻ, gần chợ hot nhất hiện nay được các 'phượt thủ' chia sẻ. Hãy cùng vnhomestay khám phá...",
+          "image": "assets/images/Hue.jpg"
+      },
+      {
+          "id": 6,
+          "name": "CÁC CÁCH CƯ XỬ ĐÚNG MỰC KHI Ở HOMESTAY",
+          "description": "Nếu lựa chọn homestay (hình thức sinh sống với gia đình người bản xứ) khi đi du học thì làm thế nào để hoà hợp,...",
+          "image": "assets/images/QuyNhon.jpg"
+      },
+      {
+          "id": 7,
+          "name": "Cùng Vnhomestay giải đáp “Homestay là gì”?",
+          "description": "Hiện nay, hình thức lưu trú homestay đang phát triển nở rộ không chỉ trên thế giới mà tại Việt Nam, tạo nên một xu...",
+          "image": "assets/images/bedroom.jpg"
+      }
+  ],
+  "account":[
+      {
+          "id": 1,
+          "fullname": "Le Hoang Giang",
+          "email": "gianglhhe130115@fpt.edu.vn",
+          "phone": "0947370722",
+          "role": "Trainer",
+          "status": "Active"
+      },
+      {
+          "id": 2,
+          "fullname": "Bui Thi Hong",
+          "email": "hongbthe130620@fpt.edu.vn",
+          "phone": "0687181712",
+          "role": "Trainee",
+          "status": "Active"
+      },
+      {
+          "id": 3,
+          "fullname": "Trần Hải Dương",
+          "email": "DuongTHSE05484@fpt.edu.vn",
+          "phone": "0125478501",
+          "role": "Trainer",
+          "status": "Inactive"
+      },
+      {
+          "id": 4,
+          "fullname": "Le Anh Duy",
+          "email": "DuyLAHE130781@fpt.edu.vn",
+          "phone": "0122443413",
+          "role": "Trainee",
+          "status": "Inactive"
+      },
+      {
+          "id": 5,
+          "fullname": "Nguyễn Quốc Đạt",
+          "email": "DatNQHE130286@fpt.edu.vn",
+          "phone": "0122123547",
+          "role": "Trainer",
+          "status": "Active"
+      }
+  ],
+  "destination":[
+      {
+          "id": 1,
+          "name": "Vịnh Hạ Long",
+          "photo": "assets/images/HaLong.png",
+          "description": "Vịnh Hạ Long là một vịnh nhỏ thuộc phần bờ tây vịnh Bắc Bộ tại khu vực biển Đông Bắc Việt Nam, bao gồm vùng biển đảo của thành phố Hạ Long thuộc tỉnh Quảng Ninh",
+          "status": "Active"
+      },
+      {
+          "id": 2,
+          "name": "Hà Nội",
+          "photo": "assets/images/HaNoi.png",
+          "description": "Hà Nội, thủ đô của Việt Nam, nổi tiếng với kiến trúc trăm tuổi và nền văn hóa phong phú với sự ảnh hưởng của khu vực Đông Nam Á, Trung Quốc và Pháp.",
+          "status": "Active"
+      },
+      {
+          "id": 3,
+          "name": "Nha Trang",
+          "photo": "assets/images/HoiAn.png",
+          "description": "Nha Trang là một thành phố ven biển và là trung tâm chính trị, kinh tế, văn hóa, khoa học kỹ thuật và du lịch của tỉnh Khánh Hòa, Việt Nam",
+          "status": "Inactive"
+      },
+      {
+          "id": 4,
+          "name": "Phú Quốc",
+          "photo": "assets/images/VungTau.png",
+          "description": "Vùng biển Phú Quốc có 22 hòn đảo lớn nhỏ, trong đó đảo Phú Quốc lớn nhất có diện tích 580 km², dài 49 km",
+          "status": "Inactive"
+      }
+  ],
+  "food": [
+      {
+          "id":1,
+          "foodName": "Bún chả",
+          "foodPhoto": "assets/images/banhcuon.jpg"
+      },
+      {
+          "id":2,
+          "foodName": "nem nướng",
+          "foodPhoto": "assets/images/banhcuon.jpg"
+      },
+      {
+          "id":3,
+          "foodName": "Nem lụi",
+          "foodPhoto": "assets/images/banhcuon.jpg"
+      },
+      {
+          "id":4,
+          "foodName": "Phở Lý Quốc Sư",
+          "foodPhoto": "assets/images/banhcuon.jpg"
+      },
+      {
+          "id":5,
+          "foodName": "Bánh cốm",
+          "foodPhoto": "assets/images/banhcom.jpg"
+      }
+  ],
+  "transactionCustomer": [
+      {
+          "id": 1,
+          "homestay": "La vie en rose",
+          "cost": 200000,
+          "payMethod": "Đặt cọc",
+          "payStatus": "Đã đặt cọc",
+          "customerName": "Bùi Thị Hồng",
+          "phoneNumber": "0364844844",
+          "time": "17/10/2021 02:03:02"
+      },
+      {
+          "id": 2,
+          "homestay": "The Galaxy Home",
+          "cost": 1300000,
+          "payMethod": "Chuyển khoản",
+          "payStatus": "Đã đặt cọc",
+          "customerName": "Lê Hoàng Giang",
+          "phoneNumber": "0947370722",
+          "time": "15/11/2021 02:12:14"
+      },
+      {
+          "id": 3,
+          "homestay": "The Galaxy Home",
+          "cost": 850000,
+          "payMethod": "Đặt cọc",
+          "payStatus": "Chưa đặt cọc",
+          "customerName": "Bùi Thị Hồng",
+          "phoneNumber": "0364844844",
+          "time": "11/11/2021 02:03:02"
+      },
+      {
+          "id": 4,
+          "homestay": "Homestay Láng Hạ",
+          "cost": 400000,
+          "payMethod": "Đặt cọc",
+          "payStatus": "Đã đặt cọc",
+          "customerName": "Lê Anh Duy",
+          "phoneNumber": "0364844844",
+          "time": "29/10/2021 12:45:32"
+      },
+      {
+          "id": 5,
+          "homestay": "La vie en rose",
+          "cost": 200000,
+          "payMethod": "Đặt cọc",
+          "payStatus": "Đã đặt cọc",
+          "customerName": "Bùi Thị Hồng",
+          "phoneNumber": "0364844844",
+          "time": "17/10/2021 02-03-02"
+      }
+  ],
+  "transactionAdmin":[
+      {
+          "id": 1,
+          "hostname": "Lê Hoàng Giang",
+          "phoneNumber": "0947370722",
+          "status": "dư tiền",
+          "needpay": 2000000,
+          "timegetmoney": "17/10/2021 02:03:02"
+      },
+      {
+          "id": 2,
+          "hostname": "Bùi Thị Hồng",
+          "phoneNumber": "0912547995",
+          "status": "thiếu tiền",
+          "needpay": 500000,
+          "timegetmoney": "17/10/2021 02:03:02"
+      },
+      {
+          "id": 3,
+          "hostname": "Trần Hải Dương",
+          "phoneNumber": "0912002445",
+          "status": "dư tiền",
+          "needpay": 800000,
+          "timegetmoney": "6/11/2021 02:03:02"
+      },
+      {
+          "id": 4,
+          "hostname": "Lê Thành Công",
+          "phoneNumber": "01248547855",
+          "status": "thiếu tiền",
+          "needpay": 100000,
+          "timegetmoney": "14/10/2021 10:03:02"
+      },
+      {
+          "id": 5,
+          "hostname": "Lê Anh Duy",
+          "phoneNumber": "01253698741",
+          "status": "dư tiền",
+          "needpay": 2000000,
+          "timegetmoney": "4/10/2021 16:03:02"
+      },
+      {
+          "id": 6,
+          "hostname": "Nguyễn Văn Giang",
+          "phoneNumber": "0945874475",
+          "status": "thiếu tiền",
+          "needpay": 2000000,
+          "timegetmoney": "4/10/2021 16:03:02"
+      },
+      {
+          "id": 7,
+          "hostname": "Bùi Văn Thư",
+          "phoneNumber": "01253698741",
+          "status": "dư tiền",
+          "needpay": 540000,
+          "timegetmoney": "4/10/2021 16:03:02"
+      }
+  ],
+  "settings":[
+      {
+          "id": 1,
+          "name": "Giảng viên",
+          "type": "USER_ROLE",
+          "value":"Trainer",
+          "status": "Active"
+      },
+      {
+          "id": 2,
+          "name": "Giảng viên",
+          "type": "USER_ROLE",
+          "value":"Trainer",
+          "status": "Inactive"
+      },
+      {
+          "id": 3,
+          "name": "Học viên",
+          "type": "USER_ROLE",
+          "value":"Trainee",
+          "status": "Active"
+      }
+  ]
+}

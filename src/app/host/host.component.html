@@ -1,0 +1,41 @@
+<div class="row row-contain">
+  <div class="col-12 col-sm-4 col-md-3 col-left">
+    <div class="menu-side-bar">
+      <ul>
+        <li [routerLink]="[ '/host', 'homestay-list']" routerLinkActive="li-active">
+          <a>
+            <span class="icon">
+              <i class='fas fa-home'></i>
+            </span>
+            <span class="txt-item">
+              Danh sách homestay
+            </span>
+          </a>
+        </li>
+        <li [routerLink]="[ '/host', 'booking-request']" routerLinkActive="li-active">
+          <a>
+            <span class="icon">
+              <i class='fas fa-address-book'></i>
+            </span>
+            <span class="txt-item">
+              Yêu cầu đặt chỗ
+            </span>
+          </a>
+        </li>
+        <!-- <li [routerLink]="[ '/host', 'revenue']" routerLinkActive="li-active">
+          <a>
+            <span class="icon">
+              <i class='fas fa-donate'></i>
+            </span>
+            <span class="txt-item">
+              Doanh thu
+            </span>
+          </a>
+        </li> -->
+      </ul>
+    </div>
+  </div>
+  <div class="col-12 col-sm-8 col-md-9 col-right">
+    <router-outlet></router-outlet>
+  </div>
+</div>

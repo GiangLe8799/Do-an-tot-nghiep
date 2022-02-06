@@ -1,0 +1,159 @@
+$clr-yellow:#ffcc00;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+@mixin align-items-center {
+  display: flex;
+  align-items: center;
+}
+
+.row-contain {
+  @include size-responsive(100%, auto);
+  margin: 10% 0 0 0;
+  background-color: $clr-white;
+  position: relative;
+  bottom: 0;
+  /*---------------Contact---------------*/
+  .col-contact {
+    @include size-responsive(100%, auto);
+    /*---------------logo---------------*/
+    .row-contain-logo {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      @include align-items-center();
+      .col-logo {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        .img-logo {
+          @include size-responsive(50%, auto);
+        }
+      }
+      .col-name-logo {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        .txt-name-web {
+          font-weight: bolder;
+          font-size: 120%;
+        }
+      }
+    }
+    /*---------------phone number---------------*/
+    .row-contact {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      .col-item-contact {
+        @include size-responsive(100%, auto);
+        padding: 0;
+        .ic-contact {
+          font-size: 120%;
+        }
+        .txt-phone-number, .txt-gmail {
+          margin-left: 2px;
+        }
+      }
+    }
+    /*---------------follow us---------------*/
+    .row-link-follow {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      .col-ic-link {
+        @include size-responsive(100%, auto);
+        padding-left: 0;
+        font-size: 200%;
+        cursor: pointer;
+        a {
+          color: $clr-black;
+        }
+      }
+    }
+  }
+  /*---------------Top place---------------*/
+  .col-top-place {
+    @include size-responsive(100%, auto);
+    padding-left: 0;
+    .row-txt-place {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      font-size: 120%;
+      font-weight: bolder;
+    }
+    .row-item-place {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      padding: 5px 0;
+    }
+  }
+  /*---------------Type homestay---------------*/
+  .col-type-homestay {
+    @include size-responsive(100%, auto);
+    padding-left: 0;
+    .row-txt-type {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      font-size: 120%;
+      font-weight: bolder;
+    }
+    .row-item-type {
+      @include size-responsive(100%, auto);
+      margin: 0;
+      padding: 5px 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 1024px) {
+
+}
+
+@media only screen and (max-width: 960px) {
+
+}
+
+@media only screen and (max-width: 854px) {
+
+}
+
+@media only screen and (max-width: 720px) {
+
+}
+
+@media only screen and (max-width: 640px) {
+
+}
+
+@media only screen and (max-width: 576px) {
+  .row-contain {
+    font-size: 60% !important;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+
+}

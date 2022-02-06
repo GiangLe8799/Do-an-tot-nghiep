@@ -1,0 +1,38 @@
+<div class="contain-login" *ngIf="!isLoggedIn">
+  <form name="form" (ngSubmit)="onSubmit()">
+    <span class="txt-login">Đăng nhập</span>
+    <br><br>
+    <input type="text" id="username" class="input-fill-in" name="username" [(ngModel)]="form.userName"
+    placeholder="Nhập tài khoản" required/>
+    <br>
+    <span class="txt-mess">
+      {{messUsername}}
+    </span>
+    <br><br>
+    <input type="password" id="password" class="input-fill-in" name="password"
+    [(ngModel)]="form.passWord" placeholder="Nhập mật khẩu" required/>
+    <br>
+    <span class="txt-mess">
+      {{messPass}}
+    </span>
+    <br><br>
+    <label>
+      <input type="checkbox" class="input-chbox" name="remember" (change)="rememberInfo($event)"/> Nhớ mật khẩu
+    </label>
+    <div class="txt-mess" *ngIf="isLoginFailed">
+      {{errorMessage}}
+    </div>
+    <br><br>
+    <button class="btn btn-danger btn-login">
+      Đăng nhập
+    </button>
+    <br><br>
+    <div class="row row-contain-forgot-password">
+      <div class="col">
+        <a class="a-forgot-pass" [routerLink]="['/auth','forgot-password']">
+          Quên mật khẩu ?
+        </a>
+      </div>
+    </div>
+  </form>
+</div>

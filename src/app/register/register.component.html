@@ -1,0 +1,85 @@
+<div class="contain">
+  <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+    <span class="txt-register">Đăng ký thành viên</span>
+    <br><br>
+    <label for="email" class="title-input">
+      Nhập email
+    </label>
+    <br>
+    <input type="email" id="email" class="input-fill-in" placeholder="abc@xyz.com"
+    formControlName="email" [(ngModel)]="formRegister.email" required/>
+    <br>
+    <label for="email" class="message">
+      {{messEmail}}
+    </label>
+    <br>
+    <label for="phone" class="title-input">
+      Nhập số điện thoại
+    </label>
+    <br>
+    <input type="tel" id="phone" class="input-fill-in" pattern="[0-9]{1,4}[0-9]{1,3}[0-9]{1,4}" minlength="10" maxlength="11"
+    placeholder="09xxxxxxxx" formControlName="phone" [(ngModel)]="formRegister.phoneNumber" required/>
+    <br>
+    <label for="phone" class="message">
+      {{messPhone}}
+    </label>
+    <br>
+    <label for="fullname" class="title-input">
+      Nhập họ và tên
+    </label>
+    <br>
+    <input type="text" id="fullname" class="input-fill-in" placeholder="VD: Nguyễn Văn A" formControlName="fullname"
+    maxlength="50" [(ngModel)]="formRegister.fullName" required/>
+    <br>
+    <label for="fullname" class="message">
+      {{messName}}
+    </label>
+    <br>
+    <!-- <label for="username" class="title-input">
+      Nhập tài khoản
+    </label>
+    <br>
+    <input type="text" id="username" class="input-fill-in" placeholder="VD: Nhập tài khoản" formControlName="username"
+    maxlength="50" [(ngModel)]="formRegister.userName" required/>
+    <br>
+    <label for="fullname" class="message">
+      {{messUserName}}
+    </label>
+    <br> -->
+    <label for="password" class="title-input">
+      Nhập mật khẩu
+    </label>
+    <br>
+    <input type="password" id="password" class="input-fill-in" placeholder="Nhập mật khẩu"
+    formControlName="password" [(ngModel)]="formRegister.passWord" required/>
+    <br>
+    <label for="password" class="message">
+      {{messPass}}
+    </label>
+    <br>
+    <label for="confirmPassword" class="title-input">
+      Xác nhận mật khẩu
+    </label>
+    <br>
+    <input type="password" id="confirmPassword" class="input-fill-in" placeholder="Xác nhận mật khẩu"
+    formControlName="confirmPassword" [(ngModel)]="formRegister.confirmPass" required/>
+    <br>
+    <label for="confirmPassword" class="message">
+      {{messConfirmPass}}
+    </label>
+    <br><br>
+    <button type="submit" class="btn btn-danger btn-register" [disabled]="!registerForm.valid">
+      Đăng ký
+    </button>
+  </form>
+  <!--toast message-->
+  <div class="col-12 col-message" [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

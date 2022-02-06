@@ -1,0 +1,36 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="contain-blog-exp">
+      <h4>
+        Danh sách bài viết
+        <!-- {{blog.category}} -->
+      </h4>
+      <hr />
+      <div class="row row-blog-list">
+        <div class="col-6 col-sm-3 col-blog-item"
+            (click)="navigateToBlogDetail(blog.id)" *ngFor="let blog of listBlog| paginate:{
+              itemsPerPage: 12,
+              id: 'first',
+              currentPage: page,
+              totalItems: listBlog.length}">
+            <div class="contain-item">
+              <div class="contain-img">
+                <img [src]="imgList.get('post'+blog.id+'.jpg')" alt="" />
+              </div>
+              <div class="contain-content">
+                <h5>
+                  {{blog.postName}}
+                </h5>
+                <span>
+                  {{blog.shortDescription}}
+                </span>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row row-contain-paging">
+        <pagination-controls class="paging" (pageChange)="page = $event" id="first"></pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>

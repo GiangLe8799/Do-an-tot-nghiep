@@ -1,0 +1,146 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-contain-back-page">
+      <a type="button" class="btn btn-secondary" [routerLink]="['/admin','blog-list']">
+        <i class='fas fa-arrow-left'></i>
+      </a>
+    </div>
+    <div class="row row-contain-blog-detail">
+      <div class="col-12 col-contain-blog-detail">
+        <form method="post">
+          <!--img thumb blog-->
+          <div class="row row-img-thumb">
+            <span class="txt-title">
+              Ảnh đại diện bài viết
+            </span>
+            <div class="contain-img-thumb" [ngClass]="{'displayNoneImgThumb': isDisplayNoneImgThumb}">
+              <img [src]="imgThumbBlog">
+              <button class="btn btn-cancel" (click)="cancelAddImgThumb()" >
+                <i class='far fa-times-circle'></i>
+              </button>
+            </div>
+            <label for="imgThumb" [ngClass]="{'displayNoneAddImgThumb': isDisplayNoneAddImgThumb}">
+              <span class="txt-icon">
+                <i class='far fa-image'></i>
+              </span>
+              <span class="txt-des">
+                Click ở đây để chọn ảnh
+              </span>
+            </label>
+            <input type="file" #inputImgThumb name="imgThumb" id="imgThumb" (change)="onSelectImageThumb($event)" accept="image/*" required/>
+            <span class="txt-mess">
+              {{messImgThumbBlog}}
+            </span>
+            <br>
+          </div>
+          <!--info blog-->
+          <div class="row row-info-blog">
+            <div class="col-12 col-info-blog">
+              <label class="txt-title-input" for="name">
+                Tên bài viết <span class="txt-must-have">*</span>
+              </label>
+              <br>
+              <input type="text" class="input-fill-in" name="name" id="nameBlog" maxlength="1000" required>
+              <br>
+              <span class="txt-mess">
+                {{messNameBlog}}
+              </span>
+              <br><br>
+              <label class="txt-title-input" for="short-desc">
+                Mô tả ngắn <span class="txt-must-have">*</span>
+              </label>
+              <br>
+              <textarea type="text" class="txt-short-desc" name="description" id="shortDesc" rows="5" maxlength="1000" placeholder="Nhập mô tả"></textarea>
+              <br>
+              <span class="txt-mess">
+                {{messShortDescBlog}}
+              </span>
+              <br><br>
+              <label class="txt-title-input" for="short-desc">
+                Thể loại
+              </label>
+              <br>
+              <select name="typeBlog" id="typeBlog">
+                <option value="{{category.name}}" *ngFor="let category of categories" [selected]="blog.category==category.name">
+                  {{category.value}}
+                </option>
+              </select>
+              <br><br>
+              <label class="txt-title-input" for="city">
+                Thành phố
+              </label>
+              <br>
+              <select name="city" id="city" (change)="changeCity($event)">
+                <option value="{{pro.id}}" *ngFor="let pro of provinces">
+                  {{pro.provinceName}}
+                </option>
+              </select>
+              <br>
+              <br><br>
+              <label class="txt-title-input" for="district">
+                Quận/huyện
+              </label>
+              <br>
+              <select name="district" id="district" (change)="changeDistrict($event)">
+                <option value="{{district.id}}" *ngFor="let district of districts">
+                  {{district.districtName}}
+                </option>
+              </select>
+              <br><br>
+              <label class="txt-title-input" for="destination">
+                Địa danh
+              </label>
+              <br>
+              <select name="destination" id="destination" (change)="changeDestination($event)">
+                <option value="{{des.id}}" *ngFor="let des of destinations">
+                  {{des.destinationName}}
+                </option>
+              </select>
+              <br><br>
+              <label class="txt-title-input" for="newStatus">
+                Trạng thái <span class="txt-must-have">*</span>
+              </label>
+              <br>
+              <input type="radio" name="newStatus" id="active" value="1" [checked]="true" quired>
+              <label for="active">
+                Hiển thị
+              </label>
+              <input type="radio" class="input-radio" name="newStatus" id="inactive" value="0" required>
+              <label for="inactive">
+                Ẩn
+              </label>
+              <br><br>
+              <label class="txt-title-input" for="long-desc">
+                Bài viết <span class="txt-must-have">*</span>
+              </label>
+              <br>
+              <div class="contain-long-desc">
+                <quill-editor [styles]="{height: '1000px'}" id="longDesc" placeholder="Nhập nội dung bài viết ..." (onEditorChanged)="changedEditor($event)">
+                </quill-editor>
+              </div>
+              <br>
+              <span class="txt-mess">
+                {{messLongDescBlog}}
+              </span>
+            </div>
+          </div>
+          <div class="row row-btn-submit">
+            <a type="button" class="btn btn-success btn-submit" (click)="submitAddBlog()">
+              Thêm
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message" [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

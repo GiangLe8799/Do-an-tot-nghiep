@@ -1,0 +1,121 @@
+$clr-red1:#ff6666;
+$clr-red2:#ff9999;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+$clr-green: #00e600;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+.row-contain {
+  @include size-responsive(100%, auto);
+  margin: 0;
+  padding-top: 7%;
+  .col-side {
+    @include size-responsive(100%, auto);
+    padding: 0;
+  }
+  .col-contain-left {
+    @include size-responsive(100%, auto);
+    .select-func {
+      @include size-responsive(100%, auto);
+      margin: 0 0 2% 0;
+      border-radius: 10px;
+      .option-func {
+        @include size-responsive(100%, auto);
+        text-align: center;
+        padding: 4% 1%;
+        border: 2px solid $clr-white1;
+        transition: 0.2s;
+        cursor: pointer;
+      }
+      //css event
+      .border-act {
+        border-left: 2px solid $clr-red1;
+      }
+    }
+  }
+  .col-contain-right {
+    @include size-responsive(100%, auto);
+    background-color: $clr-white;
+    border-radius: 5px;
+    padding: 2% 4%;
+    box-shadow: 0 3px 8px 1px $clr-white3;
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+
+}
+
+@media only screen and (max-width: 1280px) {
+
+}
+
+@media only screen and (max-width: 960px) {
+
+}
+
+@media only screen and (max-width: 768px) {
+
+}
+
+@media only screen and (max-width: 720px) {
+  .row-contain {
+    padding-top: 10%;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+
+}
+
+@media only screen and (max-width: 576px) {
+  .row-contain {
+    padding-top: 20%;
+    .col-side {
+      display: none;
+    }
+    .col-contain-left {
+      .select-func {
+        .option-func {
+          border: 2px solid $clr-white1 !important;
+        }
+        //css event
+        .border-act {
+          background: none;
+          border-left: none;
+          border-bottom: 2px solid $clr-red1 !important;
+        }
+      }
+    }
+    .col-contain-right {
+      border-radius: 0px !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 360px) {
+
+}
+
+@media only screen and (max-width: 320px) {
+
+}

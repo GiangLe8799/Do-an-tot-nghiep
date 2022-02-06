@@ -1,0 +1,126 @@
+<div class="contain">
+  <div class="row row-contain-img ">
+    <div class="col-4 col-sm-2 col-contain-img">
+      <img [src]="imgAva" class="img-ava">
+    </div>
+    <div class="col col-sm-4 col-contain-btn-change-ava">
+      <button class="btn btn-danger btn-change-ava" data-backdrop="static" data-toggle="modal" data-target="#modal-change-ava">
+        <i class='fas fa-sync'></i>
+      </button>
+    </div>
+    <div class="col col-sm-6 col-become-host" *ngIf="user.role == 'ROLE_CUSTOMER'">
+      <button class="btn btn-warning btn-become-host" data-toggle="modal" data-target="#becomeHost">
+        Trở thành chủ nhà
+      </button>
+    </div>
+  </div>
+  <form [formGroup]="editProfileForm" (ngSubmit)="submitProfile()">
+    <div class="row row-contain-info">
+      <div class="col col-contain-info">
+        <label for="">Họ và Tên</label>
+        <br>
+        <input class="input-fill-in" type="text" id="fullname" formControlName="fullname"
+        placeholder="vd: Nguyễn Văn A" maxlength="50" [(ngModel)]="user.fullName" required/>
+        <br>
+        <label for="fullname" class="mess-warn" >{{messName}} </label>
+        <br><br>
+        <label for="">Ngày sinh</label>
+        <br>
+        <input class="input-fill-in" type="date" id="dob" formControlName="dob" max="{{year}}-{{month}}-{{day}}"
+        [(ngModel)]="user.dob" required/>
+        <br>
+        <label for="dob" class="mess-warn" >{{messDOB}} </label>
+        <br><br>
+        <label for="">Số điện thoại</label>
+        <br>
+        <input class="input-fill-in " type="tel" id="phone" formControlName="phone" minlength="10" maxlength="11"
+        placeholder="vd: 0902xxxxxx" [(ngModel)]="user.phoneNumber" required readonly/>
+        <br>
+        <label for="phone" class="mess-warn" >{{messPhone}} </label>
+        <br><br>
+        <label for="">Email</label>
+        <br>
+        <input class="input-fill-in" type="email" id="email" formControlName="email" placeholder="vd: abc@xyz.com"
+        [(ngModel)]="user.email" required/>
+        <br>
+        <label for="email" class="mess-warn" >{{messEmail}} </label>
+        <br><br>
+      </div>
+    </div>
+    <div class="row row-contain-btn-user-update">
+      <button type="submit" class="btn btn-danger btn-user-update"
+      [disabled]="!editProfileForm.valid">
+        Cập nhật
+      </button>
+    </div>
+  </form>
+  <!--modal change avatar-->
+  <div class="modal fade" id="modal-change-ava">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Ảnh đại diện
+          </h4>
+          <button type="button" class="close" data-dismiss="modal" (click)="closeModalChangeAva()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img [src]="imgAva" class="ava-current" [class]="{'display-ava-current': isDisplayModalChangeAva}">
+          <image-cropper [class]="{'display-upload-ava': !isDisplayModalChangeAva}"
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1 / 1"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          [roundCropper]="true"
+          ></image-cropper>
+        </div>
+        <div class="modal-footer">
+          <label for="fileInput" class="btn btn-success">
+            <i class='fas fa-file-image'></i> Chọn ảnh
+          </label>
+          <input  type="file" #fileInput name="" id="fileInput" [class]="{'display-btn': isDisplayModalChangeAva}" class="btn-file" (change)="fileChangeEvent($event)" accept="image/*"/>
+          <button type="button" class="btn btn-primary btn-save" [class]="{'display-btn': !isDisplayModalChangeAva}" data-dismiss="modal" (click)="uploadFile()" >Lưu</button>
+          <button type="button" class="btn btn-danger btn-cancel" data-dismiss="modal" (click)="closeModalChangeAva()" >Huỷ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="becomeHost">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          Bạn có muốn trở thành chủ nhà không ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="toHost()">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message" [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

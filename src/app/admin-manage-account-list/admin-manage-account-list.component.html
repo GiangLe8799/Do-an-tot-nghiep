@@ -1,0 +1,315 @@
+<div class="contain">
+  <h1>Danh sách tài khoản</h1>
+  <div class="head">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 left">
+          <div class="row">
+            <div class="col-sm-6">
+              <select class="opt" name="roleUser" id="roleUser" (change)="sortRoleUser()">
+                <option id="-1" [value]="null" disabled selected>
+                  Chọn role
+                </option>
+                <option value="all">
+                  Tất cả
+                </option>
+                <option value="{{role.value}}" *ngFor="let role of userRoles">
+                  {{role.name}}
+                </option>
+              </select>
+            </div>
+            <div class="col-sm-6">
+            </div>
+            <div class="col-sm-6">
+              <span class="text-primary txt-sort" (click)="showByAllAccount()">
+                Tất cả ({{countAll}})
+              </span>
+              <br>
+              <span class="text-success txt-sort" (click)="showByAccountActive()">
+                Đang hoạt động({{countActive}})
+              </span>
+              <br>
+              <span class="text-secondary txt-sort" (click)="showByAccountNotActive()">
+                Không hoạt động({{countDisabled}})
+              </span>
+            </div>
+            <div class="col-sm-6">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".modal0">
+                <i class='fas fa-plus'></i>
+                Thêm
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 right">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" id="search" [(ngModel)]="searchKey"
+              placeholder="Tìm kiếm tên,SĐT,email,..." aria-label="Recipient's username"
+              aria-describedby="basic-addon2">
+            <button type="submit" class="btn btn-primary" (click)="checkSearching()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <div class="err">
+            {{mesError}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table main-table">
+      <thead>
+        <th scope="col" class="th-txt">
+          STT
+        </th>
+        <th scope="col" class="th-txt">
+          Họ và tên
+        </th>
+        <th scope="col" class="th-txt">
+          Username
+        </th>
+        <th scope="col" class="th-txt">
+          Email
+        </th>
+        <th scope="col" class="th-txt">
+          SĐT
+        </th>
+        <th scope="col" class="th-txt">
+          Role
+        </th>
+        <th scope="col">
+          Hoạt động
+        </th>
+        <th scope="col">
+          Chỉnh sửa
+        </th>
+      </thead>
+      <tbody *ngIf="users.length > 0">
+        <tr *ngFor="let user of users | paginate:{
+            itemsPerPage: 10,
+            currentPage: page,
+            totalItems: totalLengthAcc}; let i = index">
+          <td class="td-txt">
+            {{i+1}}
+          </td>
+          <td class="td-txt">
+            {{user.fullName}}
+          </td>
+          <td class="td-txt">
+            {{user.userName}}
+          </td>
+          <td class="td-txt">
+            {{user.email}}
+          </td>
+          <td class="td-txt">
+            {{user.phoneNumber}}
+          </td>
+          <td class="td-txt">
+            {{showRoleText(user.role)}}
+          </td>
+          <td>
+            <!-- <input type="checkbox" name="active" id="active" [checked]="user.status == 1" data-toggle="modal"
+              data-target="#messQuestion" (change)="changeStatusAccount(user)"> -->
+              <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="user.status == 1" (click)="changeStatusAccount(user)">
+                <i class='fas fa-eye'></i>
+              </button>
+              <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="user.status == 0" (click)="changeStatusAccount(user)">
+                <i class='fas fa-eye-slash'></i>
+              </button>
+          </td>
+          <td>
+            <button class="btn btn-warning" (click)="getUserById(user.id)" data-toggle="modal" data-target=".modal1">
+              <i class='fas fa-edit'></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 col-contain-paging">
+    <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+  </div>
+  <div class="modal modal0 fade" id="exampleModalLong">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Thêm tài khoản mới
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="username">User name</label>
+                  <input type="text" class="form-control" name="username" id="username" maxlength="10" placeholder="Nhập tên tài khoản">
+                  <label for="username" class="mess-warn">
+                    {{messAddUserName}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="fullname">Họ và tên</label>
+                  <input type="text" class="form-control" name="fullname" id="fullname" maxlength="100" placeholder="Nhập họ tên">
+                  <label for="fullname" class="mess-warn">
+                    {{messAddName}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" name="email" id="email" maxlength="200" placeholder="Nhập email">
+                  <label for="email" class="mess-warn">
+                    {{messAddEmail}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="">Số điện thoại</label>
+                  <input type="text" class="form-control" id="phone" maxlength="11" placeholder="SĐT không được dưới 10 số">
+                  <label for="phone" class="mess-warn">
+                    {{messAddPhone}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="role">Role</label>
+                  <br>
+                  <select name="addRole" id="addRole">
+                    <option value="{{role.value}}" *ngFor="let role of userRoles" [hidden]="role.value=='ROLE_BE_HOST'" >
+                      {{role.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Trạng thái</label><br>
+                  <input type="radio" id="status1" name="status" value="1" checked>
+                  <label for="status1">
+                    Đang hoạt động
+                  </label>
+                  <br>
+                  <input type="radio" id="status2" name="status" value="0">
+                  <label for="status2">
+                    Không hoạt động
+                  </label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="addAccount" (click)="addAccount()">
+              Thêm mới
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal1 fade" id="exampleModalLong">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">
+            Chỉnh sửa tài khoản
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="">Email</label>
+                  <input type="email" class="form-control" id="updateEmail" value="{{currUser.email}}" maxlength="200"
+                    placeholder="Nhập email">
+                  <label for="updateEmail" class="mess-warn">
+                    {{messEditEmail}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="">Họ và tên</label>
+                  <input type="text" class="form-control" id="updateFullName" value="{{currUser.fullName}}" maxlength="100"
+                    placeholder="Nhập họ tên">
+                  <label for="updateFullName" class="mess-warn">
+                    {{messEditName}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="">Số điện thoại</label>
+                  <input type="text" class="form-control" id="updatePhone" value="{{currUser.phoneNumber}}" maxlength="10"
+                    placeholder="SĐT không được dưới 10 số" readonly disabled>
+                  <label for="updatePhone" class="mess-warn">
+                    {{messEditPhone}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="updateRole">Role</label>
+                  <br>
+                  <select name="updateRole" id="updateRole">
+                    <option value="{{role.value}}" *ngFor="let role of userRoles"
+                    [selected]="currUser.role == role.value">
+                      {{role.name}}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Trạng thái</label><br>
+                  <input type="radio" id="updateStatus1" name="updateStatus" value="1" [checked]="currUser.status == 1">
+                  <label for="updateStatus1">
+                    Đang hoạt động
+                  </label>
+                  <br>
+                  <input type="radio" id="updateStatus2" name="updateStatus" value="0" [checked]="currUser.status == 0">
+                  <label for="updateStatus2">
+                    Không hoạt động
+                  </label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-warning" id="editAccount" (click)="editAccount()">
+              Cập nhật
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="messQuestion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{messQuestion}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES(currUser)">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message"
+    [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-sort">
+      <select class="select-sort" (change)="getReservationByStatusAndUser($event)">
+        <option value="0">
+          Tất cả
+        </option>
+        <option value="1">
+          Chờ xác nhận
+        </option>
+        <option value="2">
+          Đã duyệt
+        </option>
+        <option value="3">
+          Đã checkin
+        </option>
+        <option value="4">
+          Đã checkout
+        </option>
+        <option value="5">
+          Đã huỷ
+        </option>
+      </select>
+    </div>
+    <div class="row row-my-booking-list">
+      <div class="col-12 col-my-booking-list">
+        <div class="row row-title">
+          <h4>
+            Đặt phòng của bạn
+          </h4>
+        </div>
+        <div class="row row-my-booking-item" *ngFor="let res of reservationList">
+          <div class="col-12 col-sm-4 col-homestay" (click)="navigateToHomestayDetail(res.homestay!.destination!.id, res.homestay!.id)">
+            <div class="contain-img">
+              <img [src]="imgList.get('homestay'+res.homestay!.homestayName+'.jpg')" alt="">
+            </div>
+            <div class="contain-info">
+              <span class="txt-name">
+                {{res.homestay!.homestayName}}
+              </span>
+              <span>
+                <i class='fas fa-map-marker-alt'></i>
+                {{res.homestay!.address}}
+              </span>
+              <span>
+                <i class='fas fa-building'></i>
+                {{res.homestay!.homestayTypeName}}
+              </span>
+            </div>
+          </div>
+          <div class="col-12 col-sm-4 col-info-booking">
+            <div class="contain-info-booking">
+              <div class="contain-top">
+                <div class="item-info">
+                  <span class="txt-title">
+                    Ngày đến
+                  </span>
+                  <span>
+                    {{res.startDate | date: 'dd/MM/YYYY'}}
+                  </span>
+                </div>
+                <div class="item-info">
+                  <span class="txt-title">
+                    Ngày đi
+                  </span>
+                  <span>
+                    {{res.endDate | date: 'dd/MM/YYYY'}}
+                  </span>
+                </div>
+              </div>
+              <div class="contain-bottom">
+                <div class="item-info">
+                  <span class="txt-title">
+                    Số khách
+                  </span>
+                  <span>
+                    {{res.numberOfPeople}}
+                  </span>
+                </div>
+                <div class="item-info">
+                  <span class="txt-title">
+                    Tổng tiền
+                  </span>
+                  <span>
+                    {{currency.format(res.cost)}}₫
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-4 col-status">
+            <span class="txt-status" [ngClass]="{'txt-wait_accept': res.status==1, 'txt-accept': res.status==2, 'txt-checked': res.status==3, 'txt-cancel': res.status==5, 'txt-paying': res.status==4}">
+              {{setStatus(res.status)}}
+            </span>
+            <button class="btn btn-light btn-feedback" data-toggle="modal" data-target="#messFeedback"
+             [ngClass]="{'disabled': isDisappearBtnFeedback}" (click)="getCurrentReservation(res)">
+              Đánh giá chỗ ở
+            </button>
+          </div>
+          <div class="col-12 col-btn-cancelled-booking" *ngIf="res.status! <= 2">
+            <button class="btn btn-danger btn-cancelled-booking" data-toggle="modal" data-target="#messQuestion" (click)="cancelBooking(res)">
+              Huỷ đặt phòng
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-12 col-paging">
+        <pagination-controls class="paging" (pageChange)="page = $event"></pagination-controls>
+      </div> -->
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message" [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <!--message question-->
+  <div class="modal fade" id="messQuestion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{messQuestion}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES()">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--message feedback booking-->
+  <div class="modal fade" id="messFeedback">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Gửi đánh giá
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          <span>
+            Bạn nghĩ sao về chỗ ở chúng tôi ?
+          </span>
+          <textarea name="feedback" id="feedback" class="txt-feedback" rows="7" (keyup)="validWriteFeedback()"></textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" [disabled]="disabledBtnSendFeedback" data-dismiss="modal" (click)="clickSendFeedback(currentReservation)">
+            Gửi
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

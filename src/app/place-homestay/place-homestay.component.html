@@ -1,0 +1,168 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <!---------------Img place--------------->
+    <div class="row row-contain-img-and-txt-place">
+      <div class="contain-img-and-txt-place">
+        <div class="img-place">
+          <img [src]="imgPlace" alt="">
+        </div>
+        <div class="contain-txt-place">
+          {{currentProvinceName}}
+        </div>
+      </div>
+    </div>
+    <!---------------Breadcrumb--------------->
+    <div class="row row-breadcrumb">
+      <ul class="breadcrumb">
+        <li>
+          <a [routerLink]="[ '/home']">
+            Trang chủ
+          </a>
+        </li>
+        <li>
+          <a class="a-link-web" (click)="navigateToPlace(retrieveParams.currentProvinceId)">
+            {{currentProvinceName}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!---------------Search and sort--------------->
+    <div class="row row-contain-search-and-sort">
+      <div class="col col-left">
+        <div class="row row-contain-search">
+          <div class="col-12 col-contain-search">
+            <input type="date" [(ngModel)]="bookingDate.startDate" name="startDate" id="startDate"
+              min="{{year}}-{{month}}-{{day}}">
+            <input type="date" [(ngModel)]="bookingDate.endDate" name="endDate" id="endDate"
+              min="{{year}}-{{month}}-{{day}}">
+            <div type="button" class="btn btn-success btn-search-homestay" (click)="searchHomestayByDate()">
+              <i class='fa fa-search'></i>
+            </div>
+          </div>
+          <div class="col-12 col-mess-err">
+            {{messErrorDate}}
+          </div>
+        </div>
+        <div class="row row-contain-sort">
+          <select class="select-type" name="typeHomestay" id="typeHomestay" (change)="searchHomestayByType($event)">
+            <option value="all" disabled selected>
+              Kiểu chỗ ở
+            </option>
+            <option value="all">
+              Tất cả
+            </option>
+            <option value="{{type.value}}" *ngFor="let type of typeList">
+              {{type.name}}
+            </option>
+          </select>
+
+          <select class="select-price" name="selectPrice" id="selectPrice" (change)="sortByPrice($event)">
+            <option id="-1" [value]="null" disabled selected>
+              Sắp xếp theo giá
+            </option>
+            <option value="asc">
+              Giá tăng dần
+            </option>
+            <option value="desc">
+              Giá giảm dần
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col col-right">
+        <!-- empty -->
+      </div>
+    </div>
+    <div class="row row-txt-list-homestay">
+      Danh sách homestay ({{homestays.length}})
+    </div>
+    <!---------------List homestay and info place--------------->
+    <div class="row row-contain-list-homestay-and-info-place">
+      <!---------------List homestay--------------->
+      <div class="col-12 col-sm-8 col-md-9 col-list-homestay">
+        <div class="row row-list-homestay">
+          <!---------------Item homestay--------------->
+          <div class="col-6 col-sm-4 col-md-3 col-card-homestay" *ngFor="let hs of homestays| paginate: {
+            itemsPerPage: 16,
+            currentPage: page,
+            totalItems: homestays.length}"
+            (click)="navigateToHomestayDetail(retrieveParams.currentProvinceId,retrieveParams.currentDestinationId, hs.id)">
+            <div class="card-homestay">
+              <div class="contain-img-homestay">
+                <img [src]="imgList.get('homestay'+hs.homestayName+'.jpg')" alt="">
+              </div>
+              <div class="info-homestay">
+                <span class="txt-name">
+                  {{hs.homestayName}}
+                </span>
+                <span class="type-homestay">
+                  <i class='fas fa-building'></i>
+                  {{hs.homestayTypeName}}
+                </span>
+                <span class="txt-price">
+                  <i class='fas fa-money-bill-wave'></i>
+                  {{currency.format(hs.cost)}}đ/ Đêm
+                </span>
+                <span class="txt-address">
+                  <i class='fas fa-map-marker-alt'></i>
+                  {{hs.destination!.district!.districtName}}, {{hs.destination!.district!.province!.provinceName}}
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row row-paging">
+          <pagination-controls class="paging text-center" (pageChange)="page = $event"></pagination-controls>
+        </div>
+      </div>
+      <!---------------Info place--------------->
+      <div class="col-12 col-sm-4 col-md-3 col-info-place">
+        <div class="row row-info-place">
+          <!--------------- List info sightseeing--------------->
+          <div class="col-12 col-item-info">
+            <span class="txt-title">
+              Điểm tham quan ở {{currentProvinceName}}
+            </span>
+            <!---------------item sightseeing--------------->
+            <span *ngFor="let des of destinations">
+              <a (click)="navigateSightSeeing(retrieveParams.currentProvinceId, des.id)">
+                {{des.destinationName}}
+              </a>
+            </span>
+          </div>
+          <!---------------List info food--------------->
+          <div class="col-12 col-item-info">
+            <span class="txt-title">
+              Đặc sản ở {{currentProvinceName}}
+            </span>
+            <!---------------item food--------------->
+            <span *ngFor="let f of foods">
+              {{f.foodName}}
+            </span>
+          </div>
+          <!---------------List info blog--------------->
+          <div class="col-12 col-item-info">
+            <div class="row row-txt-blog">
+              <span class="txt-title">
+                Các bài viết về homestay {{currentProvinceName}}
+              </span>
+            </div>
+            <!---------------item blog--------------->
+            <div class="row row-blog" (click)="navigateToBlogDetail(blog.id)" *ngFor="let blog of blogs">
+              <div class="col-4 col-img">
+                <img [src]="imgList.get('post'+blog.id+'.jpg')" alt="">
+              </div>
+              <div class="col col-txt-title">
+                <span>
+                  {{blog.postName}}
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

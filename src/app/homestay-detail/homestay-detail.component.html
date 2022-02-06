@@ -1,0 +1,169 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <!---------------Img place--------------->
+    <div class="row row-contain-img-homestay">
+      <img [src]="imgList.get('homestay'+currentHomestay.homestayName+'.jpg')" alt="">
+      <!-- <img [src]="imgDetail1">
+      <img [src]="imgDetail2">
+      <img [src]="imgDetail3">
+      <img [src]="imgDetail4">
+      <img [src]="imgDetail5">
+      <img [src]="imgDetail6"> -->
+    </div>
+    <!---------------Breadcrumb--------------->
+    <div class="row row-breadcrumb">
+      <ul class="breadcrumb">
+        <li>
+          <a [routerLink]="[ '/home']">
+            Trang chủ
+          </a>
+        </li>
+        <li>
+          <a (click)="navigateToPlace(retrieveParams.currentProvinceId)">
+            {{currentProvinceName}}
+          </a>
+        </li>
+        <li>
+          <a (click)="navigateSightSeeing(retrieveParams.currentProvinceId,retrieveParams.currentDestinationId)">
+            {{currentDestinationName}}
+          </a>
+        </li>
+        <li>
+          <a class="a-link-web" (click)="navigateToHomestayDetail(retrieveParams.currentProvinceId,currentHomestay.destination!.id, retrieveParams.currentHomestayId)">
+            {{currentHomestay.homestayName}}
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!---------------Detail homestay and info place--------------->
+    <div class="row row-contain-detail-and-book-homestay">
+      <!---------------Detail homestay--------------->
+      <div class="col-12 col-md-8 col-detail-homestay">
+        <h3 class="txt-name-homestay">
+          {{currentHomestay.homestayName}}
+        </h3>
+        <span>
+          <i class='fas fa-building'></i>
+          {{currentHomestay.homestayTypeName}}
+        </span>
+        <span class="txt-address">
+          <i class='fas fa-map-marker-alt'></i>
+          {{currentHomestay.address}}
+        </span>
+        <span class="txt-amount-person">
+          <i class='fas fa-user-alt'></i>
+          {{currentHomestay.maxPeople}} người ở tối đa
+        </span>
+        <span class="underline"></span>
+        <h4 class="txt-title">
+          Mô tả
+        </h4>
+        <span class="txt-des">
+          {{currentHomestay.description}}
+        </span>
+        <span class="underline"></span>
+        <h4 class="txt-title">
+          Tiện nghi chỗ ở
+        </h4>
+        <div class="row row-contain-conven">
+            <div class="col-6 col-item-conven" *ngFor="let s of currentHomestay.services">
+              {{s.serviceName}}
+            </div>
+        </div>
+        <span class="underline"></span>
+        <h4 class="txt-title">
+          Chính sách huỷ phòng
+        </h4>
+        <span>
+          Miễn phí hủy phòng trong vòng 48h sau khi đặt phòng thành công và
+          trước 1 ngày so với thời gian check-in. Sau đó, hủy phòng trước 1 ngày
+          so với thời gian check-in, được hoàn lại 100% tổng số tiền đã trả (trừ phí dịch vụ).
+        </span>
+      </div>
+      <!---------------Book homestay--------------->
+      <div class="col-12 col-md-4 col-contain-right">
+        <div class="row-contain-book">
+          <div class="col-12 col-item col-price">
+            <h3>
+              {{currency.format(currentHomestay.cost)}}₫ /đêm
+            </h3>
+          </div>
+          <div class="col-12 col-item col-date-book">
+            <div class="row-contain-date-book">
+              <input type="date" name="startDate" id="startDate" min="{{year}}-{{month}}-{{day}}"
+              [(ngModel)]="bookingInfo.startDate">
+              <label for="endDate">
+                Đến
+              </label>
+              <input type="date" name="endDate" id="endDate" min="{{year}}-{{month}}-{{day}}"
+              [(ngModel)]="bookingInfo.endDate">
+            </div>
+            <div class="row row-mess-err">
+              {{messErrorDate}}
+            </div>
+          </div>
+          <div class="col-12 col-item col-amount-person">
+            <div class="row row-amount-person">
+              <div class="col-4 col-item">
+                <a class="btn btn-primary" [ngClass]="{'disabled': isDisabledBtnMinus}" (click)="minusAmountPerson()" >
+                  <i class='fas fa-user-minus'></i>
+                </a>
+              </div>
+              <div class="col-4 col-item">
+                <input type="text" [(ngModel)]="bookingInfo.numberPeople" min="1" value="1" readonly disabled>
+              </div>
+              <div class="col-4 col-item">
+                <a class="btn btn-primary" [ngClass]="{'disabled': isDisabledBtnPlus}" (click)="plusAmountPerson()">
+                  <i class='fas fa-user-plus'></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-item col-btn-book">
+            <!-- [routerLink]="['/booking']" -->
+            <a class="btn btn-warning btn-book" (click)="searchHomestayByDate()">
+              Đặt ngay
+            </a>
+          </div>
+        </div>
+        <div class="row row-contain-comment">
+          <div class="col-12 col-title">
+            <span class="txt-title">
+              Những đánh giá của khách hàng:
+            </span>
+            <div class="contain-txt-none" *ngIf="!feedbacks">
+              Chưa có đánh giá nào
+            </div>
+          </div>
+          <div class="col-12 col-contain-list-comment">
+            <div class="row-item-comment" *ngFor="let f of feedbacks">
+              <div class="col-left">
+                <img [src]="imgList.get('avatar'+f.user!.id+'.jpg')" alt="">
+              </div>
+              <div class="col-right">
+                <div class="row-name-user">
+                  <span class="txt-name">
+                    {{f.user!.fullName}}
+                  </span>
+                </div>
+                <!-- <div class="row-rate-star">
+                  <span class="fa fa-star" [ngClass]="{'checked': isCheckedStar1}" ></span>
+                  <span class="fa fa-star" [ngClass]="{'checked': isCheckedStar2}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked': isCheckedStar3}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked': isCheckedStar4}"></span>
+                  <span class="fa fa-star" [ngClass]="{'checked': isCheckedStar5}"></span>
+                </div> -->
+                <div class="row-comment">
+                  <span class="txt-comment">
+                    {{f.content}}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

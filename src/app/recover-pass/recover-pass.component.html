@@ -1,0 +1,32 @@
+<div class="contain-login">
+  <form [formGroup]="recoverPassForm" (ngSubmit)="submitRecoverPass()">
+    <span class="txt-recover-pass">Đặt lại mật khẩu</span>
+    <br><br>
+    <input type="password" id="newPassword" class="input-fill-in" formControlName="newPass" placeholder="Nhập mật khẩu mới" required/>
+    <br>
+    <label for="newPassword" class="message">
+      {{messNewPass}}
+    </label>
+    <br><br>
+    <input type="password" id="confirmNewPassword" class="input-fill-in" formControlName="confirmNewPass" placeholder="Nhập lại mật khẩu mới" required/>
+    <br>
+    <label for="confirmNewPassword" class="message">
+      {{messConfirmNewPass}}
+    </label>
+    <br><br>
+    <button type="submit" class="btn btn-danger btn-send-mail" [disabled]="!recoverPassForm.valid">
+      Cập nhật mật khẩu
+    </button>
+  </form>
+  <!--toast message-->
+  <div class="col-12 col-message" [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+

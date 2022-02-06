@@ -1,0 +1,253 @@
+<div class="row row-contain">
+  <div class="col-12 col-contain">
+    <div class="row row-contain-back-page">
+      <a type="button" class="btn btn-secondary" [routerLink]="['/host','homestay-list']">
+        <i class='fas fa-arrow-left'></i>
+      </a>
+    </div>
+    <form method="post">
+      <div class="row row-img-thumb">
+        <span class="txt-title">
+          Ảnh đại diện homestay <span class="txt-must-have">*</span>
+        </span>
+        <div class="contain-img-thumb" [ngClass]="{'displayNoneImgThumb': isDisplayNoneImgThumb}">
+          <img [src]="imgThumbHomestay">
+          <button class="btn btn-cancel" (click)="cancelAddImgThumb()">
+            <i class='far fa-times-circle'></i>
+          </button>
+        </div>
+        <label for="imgThumb" [ngClass]="{'displayNoneAddImgThumb': isDisplayNoneAddImgThumb}">
+          <span class="txt-icon">
+            <i class='far fa-image'></i>
+          </span>
+          <span class="txt-des">
+            Click ở đây để chọn ảnh
+          </span>
+        </label>
+        <input type="file" #inputImgThumb name="imgThumb" id="imgThumb" (change)="onSelectImageThumb($event)" accept="image/*" required />
+        <span class="txt-mess">
+          {{messImgThumbHomestay}}
+        </span>
+        <br>
+      </div>
+      <!--------------row image homestay list-------------->
+      <!-- <div class="row row-imgs-homestay-list">
+        <span class="txt-title">
+          Các ảnh khác
+        </span>
+        <div class="contain-imgs-homestay-list">
+          <div class="col-6 col-sm-4 col-md-2 col-item-img" *ngFor="let url of imgsHomestayList; let i = index">
+            <div class="item-img">
+              <img [src]="url">
+              <button class="btn btn-cancel" (click)="deleteMultiImagesHomestay(i)">
+                <i class='far fa-times-circle'></i>
+              </button>
+            </div>
+          </div>
+          <label for="imgsHomestay">
+            <span class="txt-icon">
+              <i class='far fa-image'></i>
+            </span>
+            <span class="txt-des">
+              Click ở đây để chọn ảnh
+            </span>
+          </label>
+          <input type="file" name="imgsHomestay" id="imgsHomestay" (change)="onSelectMultiImagesHomestay($event)"
+            multiple accept="image/*" required />
+        </div>
+        <br>
+        <span class="txt-mess">
+          {{messImgsHomestayList}}
+        </span>
+        <br>
+      </div> -->
+      <!--------------info homestay-------------->
+      <div class="row row-add-info-homestay">
+        <div class="col-12 col-add-info-homestay">
+          <label for="name">
+            Tên <span class="txt-must-have">*</span>
+          </label>
+          <br>
+          <input type="text" class="input-fill-in" name="name" id="name" maxlength="50" required>
+          <br>
+          <span class="txt-mess">
+            {{messNameHomestay}}
+          </span>
+          <br><br>
+          <label for="">
+            Kiểu chỗ ở <span class="txt-must-have">*</span>
+          </label>
+          <br>
+          <select name="type" id="type" required>
+            <option value="homestay">
+              Homestay
+            </option>
+            <option value="apartment">
+              Căn hộ dịch vụ
+            </option>
+            <option value="house">
+              Nhà riêng
+            </option>
+            <option value="villa">
+              Biệt thự
+            </option>
+          </select>
+          <br><br>
+          <label for="amount">
+            Số lượng người ở tối đa <span class="txt-must-have">*</span>
+          </label>
+          <br>
+          <input type="number" class="input-fill-in" name="amount" id="amount" min="1" max="100" value="1"
+            required>
+          <br>
+          <span class="txt-mess">
+            {{messAmountPerson}}
+          </span>
+          <br><br>
+          <label for="address">
+            Địa chỉ <span class="txt-must-have">*</span>
+          </label>
+          <br>
+          <span class="txt-small-des">
+            Tỉnh/Thành phố <span class="txt-must-have">*</span>
+          </span>
+          <br>
+          <select name="city" id="city" (change)="changeCity($event)" required>
+            <option selected disabled>
+              Tỉnh/Thành phố
+            </option>
+            <option value="{{pro.id}}" *ngFor="let pro of provinces">
+              {{pro.provinceName}}
+            </option>
+          </select>
+          <br>
+          <span class="txt-small-des">
+            Quận/Huyện <span class="txt-must-have">*</span>
+          </span>
+          <br>
+          <select name="district" id="district" (change)="changeDistrict($event)" required>
+            <option selected disabled>
+              Quận/Huyện
+            </option>
+            <option value="{{dis.id}}" *ngFor="let dis of districts;">
+              {{dis.districtName}}
+            </option>
+          </select>
+          <br>
+          <span class="txt-small-des">
+            Địa danh <span class="txt-must-have">*</span>
+          </span>
+          <br>
+          <select name="sightseeing" id="sightseeing" (change)="getNewDestination($event)" required>
+            <option selected disabled>
+              Địa danh
+            </option>
+            <option value="{{des.id}}" *ngFor="let des of destinations">
+              {{des.destinationName}}
+            </option>
+          </select>
+          <br>
+          <span class="txt-small-des">
+            Địa chỉ cụ thể <span class="txt-must-have">*</span>
+          </span>
+          <br>
+          <input type="text" class="input-fill-in" max="255" name="address" id="address"
+            placeholder="nhà số 1, ngõ 1, đường Cầu Giấy..." required>
+          <br>
+          <span class="txt-mess">
+            {{messAddressHomestay}}
+          </span>
+          <br><br>
+          <label for="amount">
+            Giá / đêm (VNĐ)<span class="txt-must-have">*</span>
+          </label>
+          <br>
+          <span class="txt-small-des">
+            Giá tối thiểu 100,000đ
+          </span>
+          <br>
+          <input type="number" class="input-fill-in" name="priceInWeek" id="priceInWeek" minlength="0" value="0" required>
+          <br>
+          <span class="txt-mess">
+            {{messPriceInWeek}}
+          </span>
+          <br>
+          <!-- <span class="txt-small-des">
+            Thứ 6 - Chủ nhật
+          </span>
+          <br>
+          <input type="number" class="input-fill-in" name="priceInWeekend" id="priceInWeekend" minlength="0" value="0"
+            required>
+          <br>
+          <span class="txt-mess">
+            {{messPriceInWeekend}}
+          </span> -->
+          <br><br>
+          <label for="service">
+            Dịch vụ/Tiện ích <span class="txt-must-have">*</span>
+          </label>
+          <br>
+          <!-- <div class="contain-add-service">
+            <input #addService type="text" name="services" id="service"
+            (keyup.enter)="addServiceHomstay(addService.value); addService.value='' " required>
+            <button class="btn btn-success" (click)="addServiceHomstay(addService.value); addService.value=''">
+              <i class='fas fa-plus'></i> Thêm
+            </button>
+          </div> -->
+          <div *ngFor="let service of services;">
+            <input type="checkbox" id="{{service.id}}" value="{{service.id}}" name="{{service.serviceName}}"
+              (change)="onChangeService($event)" />
+            <label class="lb-service" for="{{service.id}}">
+              {{service.serviceName}}
+            </label>
+          </div>
+          <!-- <div class="contain-service-list">
+            <div class="item" *ngFor="let service of servicesHomestayList; let i = index">
+              <span class="txt-title" *ngIf="servicesHomestayList.length > 0">
+                  {{service}}
+                  <span class="txt-icon" (click)="deleteServiceHomstay(i)">
+                    <i class='far fa-times-circle'></i>
+                  </span>
+              </span>
+            </div>
+          </div> -->
+          <span class="txt-mess">
+            {{messServicesHomestayList}}
+          </span>
+          <br><br>
+          <label for="desHomestay">
+            Thông tin chỗ nghỉ <span class="txt-must-have">*</span>
+          </label>
+          <br>
+          <span class="txt-des-small">
+            Chia sẻ với khách hàng một vài thông tin ngắn gọn và nổi bật về chỗ nghỉ này của bạn.
+          </span>
+          <br>
+          <textarea name="desHomestay" id="desHomestay" value="" maxlength="1000" rows="5" [(ngModel)]="desHomestay" required>
+          </textarea>
+          <br>
+          <span class="txt-mess">
+            {{messDesHomestay}}
+          </span>
+          <br><br>
+        </div>
+      </div>
+      <div class="row row-btn-submit">
+        <button type="submit" class="btn btn-success btn-submit" (click)="submitAddHomestay()">
+          Thêm chỗ ở mới
+        </button>
+      </div>
+    </form>
+    <!--toast message-->
+    <div class="col-12 col-message"
+      [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+      <div class="contain-toast">
+        <div class="contain-message">
+          <span>
+            {{mess}}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

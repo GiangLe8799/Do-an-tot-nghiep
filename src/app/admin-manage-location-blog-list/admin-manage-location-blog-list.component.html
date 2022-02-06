@@ -1,0 +1,158 @@
+<div class="contain">
+  <h1>Danh sách blog</h1>
+  <div class="head">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 left">
+          <table class="tabl-left">
+            <tr>
+              <td>
+                <select class="opt" id="sortBlog" name="sortBlog" (change)="sortByTypeBlog()">
+                  <option value="all">Tất cả</option>
+                  <option value="{{category.name}}" *ngFor="let category of categories">
+                    {{category.value}}
+                  </option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="text-primary txt-sort" (click)="showAll()">
+                  Tất cả ({{allLength}})
+                </span>
+                <br>
+                <span class="text-success txt-sort" (click)="getBlogsByStatus(1)">
+                  Đang hoạt động({{activeLength}})
+                </span>
+                <br>
+                <span class="text-secondary txt-sort" (click)="getBlogsByStatus(0)">
+                  Không hoạt động({{inactiveLength}})
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-primary" [routerLink]="['/admin','blog-list','add']">
+                  <i class='fas fa-plus'></i>
+                  Thêm
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-lg-6 right">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" [(ngModel)]="searchKey" name="searchKey" id="search" placeholder="Tìm kiếm blog...">
+            <button type="submit" class="btn btn-primary" (click)="checkSearching()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+          <div class="err">{{messSearch}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table main-table">
+      <thead>
+        <th scope="col" class="th-txt">
+          STT
+        </th>
+        <th scope="col" class="th-txt">
+          Tiêu đề
+        </th>
+        <th scope="col" class="th-txt">
+          Thể loại
+        </th>
+        <th scope="col" class="th-txt">
+          Tác giả
+        </th>
+        <th scope="col" class="th-txt">
+          Ngày đăng
+        </th>
+        <th scope="col">
+          Hiển/Ẩn
+        </th>
+        <th scope="col">
+          Chỉnh sửa
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of blogs| paginate:{
+            itemsPerPage: 5,
+            currentPage: page,
+            totalItems: blogs.length}; let i = index">
+          <td class="td-txt">
+            {{i+1}}
+          </td>
+          <td class="td-txt td-over-size">
+            {{b.postName}}
+          </td>
+          <td class="td-txt td-over-size">
+            {{showCategoryText(b.category)}}
+          </td>
+          <td class="td-txt td-over-size">
+            {{b.user?.fullName}}
+          </td>
+          <td class="td-txt">
+            {{b.date | date: 'dd/MM/YYYY'}}
+          </td>
+          <td>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="b.status == 1"
+              (click)="blogIsActive(b)">
+              <i class='fas fa-eye'></i>
+            </button>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="b.status == 0"
+              (click)="blogIsActive(b)">
+              <i class='fas fa-eye-slash'></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-warning" (click)="navigateToBlogDetail(b.id)">
+              <i class='fas fa-edit'></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 col-contain-paging">
+    <pagination-controls class="text-center" (pageChange)="page = $event">
+    </pagination-controls>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message"
+    [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="messQuestion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{messQuestion}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES(currentBlog.id)">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

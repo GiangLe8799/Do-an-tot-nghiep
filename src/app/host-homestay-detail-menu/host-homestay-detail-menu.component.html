@@ -1,0 +1,20 @@
+<div class="row row-contain">
+  <div class="col-12 col-menu">
+    <div class="row row-contain-back-page">
+      <a type="button" class="btn btn-secondary" [routerLink]="['/host','homestay-list']">
+        <i class='fas fa-arrow-left'></i>
+      </a>
+    </div>
+    <div class="row row-contain-menu">
+      <div class="item" [routerLink]="['/host','homestay-list','detail','edit']" routerLinkActive="active">
+        Chỉnh sửa
+      </div>
+      <div class="item" [routerLink]="['/host','homestay-list','detail','feedback']" routerLinkActive="active">
+        Đánh Giá
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-show">
+    <router-outlet></router-outlet>
+  </div>
+</div>

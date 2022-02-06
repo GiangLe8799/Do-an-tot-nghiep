@@ -1,0 +1,16 @@
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+.row-contain {
+  @include size-responsive(100%, auto);
+  margin: 7% 0 0 0;
+  .col-contain {
+    @include size-responsive(100%, auto);
+    padding: 0;
+    .img-pnfound {
+      @include size-responsive(100%, auto);
+      overflow: hidden;
+    }
+  }
+}

@@ -1,0 +1,245 @@
+<div class="contain">
+  <h1>Cài đặt</h1>
+  <div class="head">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 left">
+          <div class="roww-active">
+            <div class="row">
+              <div class="col-sm-6">
+                <select class="opt" id="typeSetting" name="typeSetting" (change)="sortByTypeSetting($event)">
+                  <option value="all" selected>
+                    All
+                  </option>
+                  <option value="{{t}}" *ngFor="let t of typeList">{{t}}</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <span class="text-primary txt-sort" (click)="showByAllSetting()">
+                  Tất cả ({{allLength}})
+                </span>
+                <br>
+                <span class="text-success txt-sort" (click)="showBySettingActive()">
+                  Đang hoạt động({{activeLength}})
+                </span>
+                <br>
+                <span class="text-secondary txt-sort" (click)="showBySettingNotActive()">
+                  Không hoạt động({{inactiveLength}})
+                </span>
+              </div>
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-primary add" data-toggle="modal" data-target=".modal0">
+                  <i class='fas fa-plus'></i>
+                  Thêm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive">
+    <table class="table main-table">
+      <thead>
+        <th scope="col" class="th-txt">STT</th>
+        <th scope="col" class="th-txt">Tên</th>
+        <th scope="col" class="th-txt">Type</th>
+        <th scope="col" class="th-txt">Value</th>
+        <th scope="col">Hoạt động</th>
+        <th scope="col">Chỉnh sửa</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let st of settings | paginate:{
+            itemsPerPage: 5,
+            currentPage: page,
+            totalItems: settings.length
+          }; let i = index">
+          <td class="td-txt">{{i+1}}</td>
+          <td class="td-txt">{{st.name}}</td>
+          <td class="td-txt">{{st.type}}</td>
+          <td class="td-txt">{{st.value}}</td>
+          <td>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="st.status == 1" (click)="settingIsActive(st)">
+              <i class='fas fa-eye'></i>
+            </button>
+            <button class="btn btn-display" data-toggle="modal" data-target="#messQuestion" *ngIf="st.status == 0" (click)="settingIsActive(st)">
+              <i class='fas fa-eye-slash'></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-warning" data-toggle="modal" data-target=".modal1" (click)="setCurrentSetting(st)">
+              <i class='fas fa-edit'></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-12 col-contain-paging">
+    <pagination-controls class="text-center" (pageChange)="page = $event"></pagination-controls>
+  </div>
+
+  <div class="modal modal0 fade" id="exampleModalScrollable">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form>
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Thêm cài đặt mới
+            </h4>
+            <button type="button" class="close" data-dismiss="modal">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-7 mod-left">
+                <div class="form-group">
+                  <label for="settingName">Tên *</label>
+                  <input type="text" class="form-control" id="settingName" name="settingName" [(ngModel)]="newSetting.name" placeholder="Nhập tên"
+                    required>
+                  <label for="settingName" class="mess-warn">
+                    {{messAddNameSetting}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="settingValue">Value</label><br>
+                  <input type="text" class="form-control" id="settingValue" name="settingValue" [(ngModel)]="newSetting.value" placeholder="Nhập value"
+                    required>
+                  <label for="settingValue" class="mess-warn">
+                    {{messAddValueSetting}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-5 mod-right">
+                <div class="form-group">
+                  <label for="">Type</label><br>
+                  <select (change)="saveNewSettingType($event)">
+                    <option value="{{t}}" *ngFor="let t of typeList" [selected]="t == typeList[0]" >{{t}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Trạng thái*</label><br>
+                  <label for="addActive">
+                    <input type="radio" name="Status" id="addActive" value="active" checked> Hoạt động
+                  </label>
+                  <br>
+                  <label for="addInactive">
+                    <input type="radio" name="newSettingStatus" id="addInactive" value="0"> Không hoạt động
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" (click)="addSetting()">
+              <i class='fas fa-plus'></i>
+              Thêm
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal modal1 fade" id="exampleModalScrollable">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form>
+          <div class="modal-header">
+            <h4 class="modal-title">
+              Chi tiết cài đặt
+            </h4>
+            <button type="button" class="close" data-dismiss="modal">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-7 mod-left">
+                <div class="form-group">
+                  <label for="editName">Tên *</label>
+                  <input type="text" id="editName" name="editName" [(ngModel)]="currentSetting.name" class="form-control"
+                    placeholder="Nhập tên" required>
+                  <label for="editName" class="mess-warn">
+                    {{messEditNameSetting}}
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="editValue">Value</label><br>
+                  <input type="text" id="editValue" name="editValue" [(ngModel)]="currentSetting.value" class="form-control" required>
+                  <label for="editValue" class="mess-warn">
+                    {{messEditValueSetting}}
+                  </label>
+                </div>
+              </div>
+              <div class="col-lg-5 mod-right">
+                <div class="form-group">
+                  <label for="">Type</label><br>
+                  <select (change)="changeEditSettingType($event)">
+                    <option value="{{t}}" *ngFor="let t of typeList" [selected]="currentSetting.type == t" >{{t}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="">Trạng thái *</label><br>
+                  <label for="active">
+                    <input type="radio" id="active" name="Status" value="active" checked> Hoạt động
+                  </label>
+                  <br>
+                  <label for="inactive">
+                    <input type="radio" id="inactive" name="Status" value="inactive" class="rad-inactive"> Không hoạt động
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" (click)="updateSetting()" class="btn btn-warning">Cập nhật</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!--question message-->
+  <div class="modal fade" id="messQuestion">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-danger">
+            Thông báo
+          </h4>
+          <button type="button" class="close" data-dismiss="modal">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{messQuestion}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal" (click)="clickYES()">
+            Có
+          </button>
+          <button type="button" class="btn btn-light" data-dismiss="modal">
+            Không
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--toast message-->
+  <div class="col-12 col-message"
+    [ngClass]="{'displayMessage': displaySuccessMess, 'displayErrorMessage': displayErrorMess}">
+    <div class="contain-toast">
+      <div class="contain-message">
+        <span>
+          {{mess}}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+$clr-yellow:#ffcc00;
+$clr-white:#fff;
+$clr-white1:#f2f2f2;
+$clr-white2:#e6e6e6;
+$clr-white3:#d9d9d9;
+$clr-white4:#cccccc;
+$clr-white5: #bfbfbf;
+$clr-white6: #b3b3b3;
+$clr-black: #000;
+$clr-black1:#0d0d0d;
+$clr-black2:#1a1a1a;
+$clr-black3:#262626;
+$clr-black4:#333333;
+$clr-black5: #404040;
+$clr-black6: #4d4d4d;
+@mixin size-responsive($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+body {
+  height: auto;
+  font-size: 16px;
+  font-family: 'Time New Roman', "Segoe UI", Helvetica, Arial, sans-serif;
+  background-color: $clr-white1;
+  color: $clr-black;
+  .contain-all{
+    @include size-responsive(100%, auto);
+  }
+}
+
+@media only screen and (max-width: 1920px) {
+
+}
+
+@media only screen and (max-width: 1440px) {
+  .contain-all {
+    font-size: 98% !important;
+  }
+
+}
+
+@media only screen and (max-width: 1280px) {
+  .contain-all {
+    font-size: 85% !important;
+  }
+
+}
+
+@media only screen and (max-width: 1024px) {
+  .contain-all {
+    font-size: 65% !important;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .contain-all {
+    font-size: 60% !important;
+  }
+}
+
+@media only screen and (max-width: 854px) {
+  .contain-all {
+    font-size: 80% !important;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .contain-all {
+    font-size: 73% !important;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .contain-all {
+    font-size: 63% !important;
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .contain-all {
+    font-size: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .contain-all {
+
+  }
+}
